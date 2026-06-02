@@ -13,28 +13,26 @@ export default function Drawer({ open, onClose }) {
         </div>
 
         <section className={styles.section}>
-          <h3 className={styles.sectionTitle}>El negocio</h3>
+          <h3 className={styles.sectionTitle}>Quiénes somos</h3>
           <p className={styles.text}>
-            {/* El dueño va a pasar la descripción */}
-            Panadería artesanal sin gluten, elaborada con amor y los mejores ingredientes.
+            Un mercadito dedicado a la elaboración y venta de alimentos de <strong>panadería, pastelería y pastas sin gluten</strong>, aptas para celíacos.
           </p>
+          <p className={styles.text}>
+            Todos nuestros productos son <strong>caseros y sin conservantes</strong>. Además contamos con opciones <strong>sin lácteos</strong>.
+          </p>
+          <p className={styles.closing}>¡Gracias por elegirnos y por ser parte de nuestra comunidad gluten free!</p>
         </section>
 
         <section className={styles.section}>
-          <h3 className={styles.sectionTitle}>Horarios</h3>
+          <h3 className={styles.sectionTitle}>Horarios de atención</h3>
           <div className={styles.hours}>
-            {/* El dueño va a pasar los horarios */}
             <div className={styles.hourRow}>
               <span>Lunes a viernes</span>
-              <span>–</span>
+              <span>7:30–13 hs / 16:30–20 hs</span>
             </div>
             <div className={styles.hourRow}>
               <span>Sábados</span>
-              <span>–</span>
-            </div>
-            <div className={styles.hourRow}>
-              <span>Domingos</span>
-              <span>–</span>
+              <span>9–13 hs</span>
             </div>
           </div>
         </section>

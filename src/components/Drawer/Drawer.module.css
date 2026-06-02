@@ -76,6 +76,14 @@
   line-height: 1.6;
 }
 
+.closing {
+  font-size: 13px;
+  color: var(--color-text-light);
+  font-style: italic;
+  line-height: 1.5;
+  padding-top: 4px;
+}
+
 .hours {
   display: flex;
   flex-direction: column;
