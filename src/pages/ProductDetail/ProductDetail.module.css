@@ -1,0 +1,98 @@
+.page {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px 20px 48px;
+}
+
+.back {
+  font-size: 14px;
+  color: var(--color-text-light);
+  margin-bottom: 20px;
+  display: block;
+}
+
+.gallery {
+  margin-bottom: 24px;
+}
+
+.mainImage {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+}
+
+.thumbs {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid transparent;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbActive {
+  border-color: var(--color-primary);
+}
+
+.name {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.price {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 16px;
+}
+
+.description {
+  font-size: 15px;
+  color: var(--color-text-light);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.addBtn {
+  width: 100%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 16px;
+  border-radius: 100px;
+  transition: background 0.2s;
+}
+
+.addBtn:hover {
+  background: #5a4030;
+}
+
+.addedBtn {
+  background: #2d6a4f;
+}
+
+.notFound {
+  padding: 80px 20px;
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
+}

@@ -1,0 +1,153 @@
+.page {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 12px;
+}
+
+.itemImage {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.itemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemName {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--color-text);
+}
+
+.itemPrice {
+  font-size: 13px;
+  color: var(--color-text-light);
+  margin-top: 2px;
+}
+
+.itemControls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.qtyBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  font-size: 16px;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty {
+  font-size: 15px;
+  font-weight: 500;
+  min-width: 16px;
+  text-align: center;
+}
+
+.removeBtn {
+  font-size: 22px;
+  color: var(--color-text-light);
+  padding: 4px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-top: 1px solid var(--color-border);
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.total {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.checkoutBtn {
+  width: 100%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 16px;
+  border-radius: 100px;
+  margin-bottom: 12px;
+}
+
+.clearBtn {
+  width: 100%;
+  background: transparent;
+  color: var(--color-text-light);
+  font-size: 14px;
+  padding: 12px;
+  border-radius: 100px;
+  border: 1px solid var(--color-border);
+}
+
+.empty {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.emptyText {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  color: var(--color-text-light);
+  margin-bottom: 20px;
+}
+
+.emptyLink {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+}
