@@ -1,6 +1,6 @@
 import styles from './ComingSoon.module.css'
 
-const IG_URL = 'https://www.instagram.com/almendra.glutenfree'
+const IG_URL = 'https://www.instagram.com/almendra.singluten/'
 const WA_URL = 'https://wa.me/543564349049'
 
 export default function ComingSoon() {
