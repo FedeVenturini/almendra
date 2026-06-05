@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer'
 import Home from './pages/Home/Home'
@@ -10,24 +11,23 @@ import ComingSoon from './pages/ComingSoon/ComingSoon'
 const COMING_SOON = true
 
 function App() {
+  const location = useLocation()
+  const isAdmin = location.pathname === '/admin'
+
+  if (COMING_SOON && !isAdmin) return <ComingSoon />
+
   return (
     <>
-      {!COMING_SOON && <Navbar />}
+      <Navbar />
       <main>
         <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/producto/:slug" element={<ProductDetail />} />
+          <Route path="/carrito" element={<CartPage />} />
           <Route path="/admin" element={<Admin />} />
-          {COMING_SOON ? (
-            <Route path="*" element={<ComingSoon />} />
-          ) : (
-            <>
-              <Route path="/" element={<Home />} />
-              <Route path="/producto/:slug" element={<ProductDetail />} />
-              <Route path="/carrito" element={<CartPage />} />
-            </>
-          )}
         </Routes>
       </main>
-      {!COMING_SOON && <Footer />}
+      <Footer />
     </>
   )
 }
