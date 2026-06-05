@@ -10,10 +10,10 @@ export default function ComingSoon() {
         <img src="/images/coming-soon.png" alt="Almendra - Próximamente" className={styles.image} />
         {/* Posiciones calculadas sobre imagen 1536x984 */}
         <a href={IG_URL} target="_blank" rel="noopener noreferrer" className={styles.hotspot}
-          style={{ left: '30%', top: '85%', width: '4.5%', height: '6.5%' }}
+          style={{ left: '30%', top: '90%', width: '4.5%', height: '7%' }}
           aria-label="Instagram" />
         <a href={WA_URL} target="_blank" rel="noopener noreferrer" className={styles.hotspot}
-          style={{ left: '36.5%', top: '85%', width: '4.5%', height: '6.5%' }}
+          style={{ left: '36.5%', top: '90%', width: '4.5%', height: '7%' }}
           aria-label="WhatsApp" />
       </div>
     </div>
