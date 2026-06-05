@@ -2,8 +2,10 @@
   min-height: 100svh;
   background: #F3DBC3;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
 .imageWrapper {
