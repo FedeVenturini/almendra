@@ -4,6 +4,7 @@ import Footer from './components/Footer/Footer'
 import Home from './pages/Home/Home'
 import ProductDetail from './pages/ProductDetail/ProductDetail'
 import CartPage from './pages/CartPage/CartPage'
+import Admin from './pages/Admin/Admin'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/producto/:slug" element={<ProductDetail />} />
           <Route path="/carrito" element={<CartPage />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
       <Footer />

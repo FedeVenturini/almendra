@@ -1,9 +1,19 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../../context/CartContext'
+import CheckoutForm from '../../components/CheckoutForm/CheckoutForm'
 import styles from './CartPage.module.css'
 
 export default function CartPage() {
   const { cart, removeItem, updateQuantity, total, clearCart } = useCart()
+  const [showForm, setShowForm] = useState(false)
+  const navigate = useNavigate()
+
+  const handleSuccess = () => {
+    clearCart()
+    setShowForm(false)
+    navigate('/')
+  }
 
   if (cart.length === 0) return (
     <div className={styles.empty}>
@@ -48,8 +58,16 @@ export default function CartPage() {
         </div>
       )}
 
-      <button className={styles.checkoutBtn}>Confirmar pedido</button>
+      <button className={styles.checkoutBtn} onClick={() => setShowForm(true)}>Confirmar pedido</button>
       <button className={styles.clearBtn} onClick={clearCart}>Vaciar carrito</button>
+
+      {showForm && (
+        <CheckoutForm
+          cart={cart}
+          total={total}
+          onSuccess={handleSuccess}
+        />
+      )}
     </div>
   )
 }

@@ -1,0 +1,280 @@
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { supabase, updateProductCatalog } from '../../lib/supabase'
+import { products as staticProducts } from '../../data/products'
+import styles from './Admin.module.css'
+
+const ADMIN_PASSWORD = 'almendra2024'
+
+function toLocalDateString(date) {
+  return date.toISOString().split('T')[0]
+}
+
+function getRangeForPreset(preset) {
+  const now = new Date()
+  const today = toLocalDateString(now)
+  if (preset === 'week') {
+    const day = now.getDay()
+    const diff = day === 0 ? -6 : 1 - day
+    const monday = new Date(now)
+    monday.setDate(now.getDate() + diff)
+    return { from: toLocalDateString(monday), to: today }
+  }
+  if (preset === 'month') {
+    const first = new Date(now.getFullYear(), now.getMonth(), 1)
+    return { from: toLocalDateString(first), to: today }
+  }
+  return null
+}
+
+function buildSummary(orders) {
+  return orders.reduce((acc, order) => {
+    order.items.forEach(item => {
+      acc[item.name] = (acc[item.name] || 0) + item.quantity
+    })
+    return acc
+  }, {})
+}
+
+export default function Admin() {
+  const [authed, setAuthed] = useState(false)
+  const [password, setPassword] = useState('')
+  const [loginError, setLoginError] = useState(null)
+  const [tab, setTab] = useState('pedidos')
+
+  // Pedidos
+  const [orders, setOrders] = useState([])
+  const [ordersLoading, setOrdersLoading] = useState(false)
+  const [preset, setPreset] = useState('week')
+  const [customFrom, setCustomFrom] = useState('')
+  const [customTo, setCustomTo] = useState('')
+
+  // Productos
+  const [catalog, setCatalog] = useState([])
+  const [catalogLoading, setCatalogLoading] = useState(false)
+  const [editing, setEditing] = useState({})
+  const [saving, setSaving] = useState({})
+
+  const login = e => {
+    e.preventDefault()
+    if (password === ADMIN_PASSWORD) { setAuthed(true); setLoginError(null) }
+    else setLoginError('Contraseña incorrecta')
+  }
+
+  useEffect(() => {
+    if (!authed) return
+    setOrdersLoading(true)
+    supabase.from('orders').select('*').order('created_at', { ascending: false })
+      .then(({ data }) => { setOrders(data || []); setOrdersLoading(false) })
+
+    setCatalogLoading(true)
+    supabase.from('product_catalog').select('*')
+      .then(({ data }) => { setCatalog(data || []); setCatalogLoading(false) })
+  }, [authed])
+
+  const activeRange = preset === 'custom'
+    ? { from: customFrom, to: customTo }
+    : getRangeForPreset(preset)
+
+  const filteredOrders = orders.filter(o => {
+    if (!activeRange?.from || !activeRange?.to) return true
+    const date = o.created_at.split('T')[0]
+    return date >= activeRange.from && date <= activeRange.to
+  })
+
+  const summary = buildSummary(filteredOrders)
+
+  const catalogWithNames = staticProducts.map(p => {
+    const row = catalog.find(r => r.id === p.id) || { price: 0, stock: 0 }
+    return { ...p, price: row.price, stock: row.stock }
+  })
+
+  const startEdit = (id, field, value) => {
+    setEditing(e => ({ ...e, [`${id}-${field}`]: String(value) }))
+  }
+
+  const handleEditChange = (id, field, value) => {
+    setEditing(e => ({ ...e, [`${id}-${field}`]: value }))
+  }
+
+  const saveField = async (id, field) => {
+    const key = `${id}-${field}`
+    const value = Number(editing[key])
+    if (isNaN(value)) return
+    setSaving(s => ({ ...s, [key]: true }))
+    await updateProductCatalog(id, { [field]: value })
+    setCatalog(prev => prev.map(r => r.id === id ? { ...r, [field]: value } : r))
+    setEditing(e => { const n = { ...e }; delete n[key]; return n })
+    setSaving(s => { const n = { ...s }; delete n[key]; return n })
+  }
+
+  if (!authed) return (
+    <div className={styles.loginPage}>
+      <form onSubmit={login} className={styles.loginForm}>
+        <h2 className={styles.loginTitle}>Panel Admin</h2>
+        <input
+          className={styles.input}
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+        {loginError && <p className={styles.error}>{loginError}</p>}
+        <button className={styles.loginBtn} type="submit">Entrar</button>
+      </form>
+    </div>
+  )
+
+  return (
+    <div className={styles.page}>
+      <div className={styles.titleRow}>
+        <h1 className={styles.title}>Panel Admin</h1>
+        <Link to="/" className={styles.exitBtn}>← Ver tienda</Link>
+      </div>
+
+      <div className={styles.tabs}>
+        <button className={`${styles.tabBtn} ${tab === 'pedidos' ? styles.tabActive : ''}`} onClick={() => setTab('pedidos')}>Pedidos</button>
+        <button className={`${styles.tabBtn} ${tab === 'productos' ? styles.tabActive : ''}`} onClick={() => setTab('productos')}>Productos</button>
+      </div>
+
+      {tab === 'pedidos' && (
+        <div className={styles.layout}>
+          <aside className={styles.sidebar}>
+            <p className={styles.sidebarTitle}>Período</p>
+            <button className={`${styles.presetBtn} ${preset === 'week' ? styles.presetActive : ''}`} onClick={() => setPreset('week')}>Última semana</button>
+            <button className={`${styles.presetBtn} ${preset === 'month' ? styles.presetActive : ''}`} onClick={() => setPreset('month')}>Último mes</button>
+            <button className={`${styles.presetBtn} ${preset === 'custom' ? styles.presetActive : ''}`} onClick={() => setPreset('custom')}>Personalizado</button>
+            {preset === 'custom' && (
+              <div className={styles.customRange}>
+                <label className={styles.rangeLabel}>
+                  Desde
+                  <input type="date" className={styles.dateInput} value={customFrom} onChange={e => setCustomFrom(e.target.value)} />
+                </label>
+                <label className={styles.rangeLabel}>
+                  Hasta
+                  <input type="date" className={styles.dateInput} value={customTo} onChange={e => setCustomTo(e.target.value)} />
+                </label>
+              </div>
+            )}
+          </aside>
+
+          <div className={styles.main}>
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>
+                Resumen — {filteredOrders.length} {filteredOrders.length === 1 ? 'pedido' : 'pedidos'}
+              </h2>
+              {Object.keys(summary).length === 0
+                ? <p className={styles.empty}>Sin pedidos en este período.</p>
+                : (
+                  <ul className={styles.summaryList}>
+                    {Object.entries(summary).map(([name, qty]) => (
+                      <li key={name} className={styles.summaryItem}>
+                        <span>{name}</span>
+                        <span className={styles.summaryQty}>{qty} u.</span>
+                      </li>
+                    ))}
+                  </ul>
+                )
+              }
+            </section>
+
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>Pedidos</h2>
+              {ordersLoading && <p className={styles.empty}>Cargando...</p>}
+              {filteredOrders.length === 0 && !ordersLoading && <p className={styles.empty}>No hay pedidos en este período.</p>}
+              {filteredOrders.map(order => (
+                <div key={order.id} className={styles.orderCard}>
+                  <div className={styles.orderHeader}>
+                    <div>
+                      <p className={styles.orderName}>{order.customer_name}</p>
+                      <p className={styles.orderContact}>{order.customer_whatsapp} · {order.customer_email}</p>
+                    </div>
+                    <div className={styles.orderMeta}>
+                      <p className={styles.orderDate}>
+                        {new Date(order.created_at).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: '2-digit' })}
+                      </p>
+                      {order.total > 0 && <p className={styles.orderTotal}>${order.total.toLocaleString('es-AR')}</p>}
+                    </div>
+                  </div>
+                  <ul className={styles.orderItems}>
+                    {order.items.map((item, i) => (
+                      <li key={i} className={styles.orderItem}>
+                        {item.name} <span>x{item.quantity}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </section>
+          </div>
+        </div>
+      )}
+
+      {tab === 'productos' && (
+        <div className={styles.productTable}>
+          <div className={styles.productTableHeader}>
+            <span>Producto</span>
+            <span className={styles.colCenter}>Precio</span>
+            <span className={styles.colCenter}>Stock</span>
+          </div>
+          {catalogLoading && <p className={styles.empty}>Cargando...</p>}
+          {catalogWithNames.map(p => {
+            const priceKey = `${p.id}-price`
+            const stockKey = `${p.id}-stock`
+            return (
+              <div key={p.id} className={styles.productRow}>
+                <span className={styles.productName}>{p.name}</span>
+
+                <div className={styles.colCenter}>
+                  {priceKey in editing ? (
+                    <div className={styles.editCell}>
+                      <input
+                        className={styles.editInput}
+                        type="number"
+                        min="0"
+                        value={editing[priceKey]}
+                        onChange={e => handleEditChange(p.id, 'price', e.target.value)}
+                        onKeyDown={e => e.key === 'Enter' && saveField(p.id, 'price')}
+                        autoFocus
+                      />
+                      <button className={styles.saveBtn} onClick={() => saveField(p.id, 'price')} disabled={saving[priceKey]}>
+                        {saving[priceKey] ? '...' : '✓'}
+                      </button>
+                    </div>
+                  ) : (
+                    <button className={styles.fieldBtn} onClick={() => startEdit(p.id, 'price', p.price)}>
+                      {p.price > 0 ? `$${p.price.toLocaleString('es-AR')}` : '— Agregar'}
+                    </button>
+                  )}
+                </div>
+
+                <div className={styles.colCenter}>
+                  {stockKey in editing ? (
+                    <div className={styles.editCell}>
+                      <input
+                        className={styles.editInput}
+                        type="number"
+                        min="0"
+                        value={editing[stockKey]}
+                        onChange={e => handleEditChange(p.id, 'stock', e.target.value)}
+                        onKeyDown={e => e.key === 'Enter' && saveField(p.id, 'stock')}
+                        autoFocus
+                      />
+                      <button className={styles.saveBtn} onClick={() => saveField(p.id, 'stock')} disabled={saving[stockKey]}>
+                        {saving[stockKey] ? '...' : '✓'}
+                      </button>
+                    </div>
+                  ) : (
+                    <button className={`${styles.fieldBtn} ${p.stock === 0 ? styles.noStock : ''}`} onClick={() => startEdit(p.id, 'stock', p.stock)}>
+                      {p.stock} u.
+                    </button>
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}

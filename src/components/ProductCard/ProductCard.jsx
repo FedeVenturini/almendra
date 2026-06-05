@@ -19,9 +19,6 @@ export default function ProductCard({ product }) {
       </div>
       <div className={styles.info}>
         <h3 className={styles.name}>{product.name}</h3>
-        {product.description && (
-          <p className={styles.description}>{product.description}</p>
-        )}
       </div>
     </Link>
   )

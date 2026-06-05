@@ -16,8 +16,7 @@ export const products = [
     name: "Alfajor Chocolate",
     slug: "alfajor-chocolate",
     category: "alfajores",
-    price: 0,
-    description: "",
+    description: "Elaborado con cacao de primera calidad y relleno generoso de dulce de leche artesanal. Cubierto con baño de chocolate suave que se derrite en cada mordida.",
     images: [
       "/images/products/alfajor-chocolate-1.jpg",
       "/images/products/alfajor-chocolate-2.jpg",
@@ -29,8 +28,7 @@ export const products = [
     name: "Alfajor Maicena",
     slug: "alfajor-maicena",
     category: "alfajores",
-    price: 0,
-    description: "",
+    description: "Clásico alfajor de maicena con tapas tiernas y suaves, rellenas de dulce de leche casero y rebozadas en coco rallado. Una receta que no falla.",
     images: ["/images/products/alfajor-maicena.jpg"],
   },
   {
@@ -38,8 +36,7 @@ export const products = [
     name: "Alfachips",
     slug: "alfachips",
     category: "alfajores",
-    price: 0,
-    description: "",
+    description: "Nuestra versión crocante del alfajor. Tapas con chips de chocolate, rellenas de dulce de leche y un toque de sal marina que potencia cada sabor.",
     images: ["/images/products/alfachips.jpg"],
   },
   {
@@ -47,8 +44,7 @@ export const products = [
     name: "Conito con Dulce de Leche",
     slug: "conito-dulce-de-leche",
     category: "alfajores",
-    price: 0,
-    description: "",
+    description: "Conos de masa crocante rellenos de dulce de leche cremoso y bañados en chocolate. Ideales para compartir en cualquier momento del día.",
     images: ["/images/products/conito-dulce-de-leche.jpg"],
   },
   {
@@ -56,8 +52,7 @@ export const products = [
     name: "Pan Lactal",
     slug: "pan-lactal",
     category: "panes",
-    price: 0,
-    description: "",
+    description: "Pan lactal artesanal de miga esponjosa y corteza suave. Sin conservantes ni aditivos. Perfecto para el desayuno, la merienda o lo que se te antoje.",
     images: [
       "/images/products/pan-lactal-1.jpg",
       "/images/products/pan-lactal-2.jpg",
@@ -68,8 +63,7 @@ export const products = [
     name: "Pan Lactal Integral",
     slug: "pan-lactal-integral",
     category: "panes",
-    price: 0,
-    description: "",
+    description: "Elaborado con harina integral de trigo, rico en fibra y con un sabor más profundo. Ideal para quienes buscan una opción más nutritiva sin resignar el sabor.",
     images: ["/images/products/pan-lactal-integral.jpg"],
   },
   {
@@ -77,8 +71,7 @@ export const products = [
     name: "Chipa Frezado",
     slug: "chipa-frezado",
     category: "chipas",
-    price: 0,
-    description: "",
+    description: "Chipa de almidón de mandioca con queso derretido en cada bocado. Crocante por fuera, tierna por dentro. La receta tradicional que tanto queremos.",
     images: [
       "/images/products/chipa-frezado-1.jpg",
       "/images/products/chipa-frezado-2.jpg",
@@ -89,8 +82,7 @@ export const products = [
     name: "Talitas",
     slug: "talitas",
     category: "talitas",
-    price: 0,
-    description: "",
+    description: "Galletitas de campo con manteca y un toque dulce muy justo. Crocantes, livianas y perfectas para acompañar el mate de la tarde.",
     images: ["/images/products/talitas.jpg"],
   },
   {
@@ -98,8 +90,7 @@ export const products = [
     name: "Talitas Integrales",
     slug: "talitas-integrales",
     category: "talitas",
-    price: 0,
-    description: "",
+    description: "La versión integral de nuestra talita de siempre. Con harina de trigo integral y semillas, para un snack más completo sin perder el sabor artesanal.",
     images: ["/images/products/talitas-integral.jpg"],
   },
   {
@@ -107,8 +98,7 @@ export const products = [
     name: "Marineras",
     slug: "marineras",
     category: "marineras",
-    price: 0,
-    description: "",
+    description: "Galletitas saladas de masa hojaldrada, ideales para acompañar fiambres, quesos o simplemente solas. Un clásico de panadería que nunca decepciona.",
     images: ["/images/products/marineras.jpg"],
   },
   {
@@ -116,8 +106,7 @@ export const products = [
     name: "Marineras Integrales",
     slug: "marineras-integrales",
     category: "marineras",
-    price: 0,
-    description: "",
+    description: "Marineras elaboradas con harina integral, con más textura y sabor. Perfectas para una picada saludable o para acompañar el queso que más te guste.",
     images: ["/images/products/marineras-integral.jpg"],
   },
   {
@@ -125,8 +114,7 @@ export const products = [
     name: "Cookies NY",
     slug: "cookies-ny",
     category: "cookies",
-    price: 0,
-    description: "",
+    description: "Inspiradas en las famosas cookies de Nueva York: grandes, con mucho chocolate y un centro suave que se deshace. Para los que no se conforman con poco.",
     images: ["/images/products/cookies-ny.jpg"],
   },
   {
@@ -134,8 +122,7 @@ export const products = [
     name: "Cookies Miel y Avena",
     slug: "cookies-miel-avena",
     category: "cookies",
-    price: 0,
-    description: "",
+    description: "Cookies con avena entera, miel natural y un toque de canela. Más livianas que las clásicas, con un sabor cálido y reconfortante en cada mordida.",
     images: [
       "/images/products/cookies-miel-avena-1.jpg",
       "/images/products/cookies-miel-avena-2.jpg",
@@ -146,8 +133,7 @@ export const products = [
     name: "Pepas",
     slug: "pepas",
     category: "galletas",
-    price: 0,
-    description: "",
+    description: "Galletitas de masa tierna rellenas de membrillo casero. Un clásico de la panadería argentina que evoca sabores de siempre, hechas con mucho cariño.",
     images: ["/images/products/pepas.jpg"],
   },
   {
@@ -155,8 +141,7 @@ export const products = [
     name: "Quesitos",
     slug: "quesitos",
     category: "quesitos",
-    price: 0,
-    description: "",
+    description: "Bocaditos de masa crocante con queso cremoso en el centro. Pequeños, adictivos y perfectos para el aperitivo o para picar en cualquier momento.",
     images: ["/images/products/quesitos.jpg"],
   },
 ];

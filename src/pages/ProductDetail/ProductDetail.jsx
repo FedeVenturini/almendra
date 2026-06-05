@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { products } from '../../data/products'
+import { useProducts } from '../../hooks/useProducts'
 import { useCart } from '../../context/CartContext'
 import styles from './ProductDetail.module.css'
 
@@ -8,9 +8,13 @@ export default function ProductDetail() {
   const { slug } = useParams()
   const navigate = useNavigate()
   const { addItem } = useCart()
-  const product = products.find(p => p.slug === slug)
+  const { products, loading } = useProducts()
   const [activeImg, setActiveImg] = useState(0)
   const [added, setAdded] = useState(false)
+
+  if (loading) return <div className={styles.notFound}><p>Cargando...</p></div>
+
+  const product = products.find(p => p.slug === slug)
 
   if (!product) return (
     <div className={styles.notFound}>
@@ -57,15 +61,19 @@ export default function ProductDetail() {
 
       <div className={styles.info}>
         <h1 className={styles.name}>{product.name}</h1>
-        {product.price > 0 && (
-          <p className={styles.price}>${product.price.toLocaleString('es-AR')}</p>
-        )}
-        {product.description && (
-          <p className={styles.description}>{product.description}</p>
-        )}
-        <button className={`${styles.addBtn} ${added ? styles.addedBtn : ''}`} onClick={handleAdd}>
-          {added ? '✓ Agregado al carrito' : 'Agregar al carrito'}
-        </button>
+        {product.price > 0
+          ? <p className={styles.price}>${product.price.toLocaleString('es-AR')}</p>
+          : <p className={styles.priceConsult}>Consultá el precio</p>
+        }
+        <p className={styles.description}>{product.description}</p>
+        {product.stock === 0
+          ? <p className={styles.outOfStock}>Sin stock disponible</p>
+          : (
+            <button className={`${styles.addBtn} ${added ? styles.addedBtn : ''}`} onClick={handleAdd}>
+              {added ? '✓ Agregado al carrito' : 'Agregar al carrito'}
+            </button>
+          )
+        }
       </div>
     </div>
   )

@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { products, categories } from '../../data/products'
+import { categories } from '../../data/products'
+import { useProducts } from '../../hooks/useProducts'
 import ProductCard from '../../components/ProductCard/ProductCard'
 import styles from './Home.module.css'
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState('todos')
+  const { products } = useProducts()
 
   const filtered = activeCategory === 'todos'
     ? products

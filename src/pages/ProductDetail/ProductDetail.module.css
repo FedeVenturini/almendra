@@ -90,6 +90,23 @@
   background: #2d6a4f;
 }
 
+.priceConsult {
+  font-size: 15px;
+  color: var(--color-text-light);
+  font-style: italic;
+  margin-bottom: 16px;
+}
+
+.outOfStock {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-light);
+  background: #f0d5d4;
+  border-radius: 100px;
+  padding: 14px;
+}
+
 .notFound {
   padding: 80px 20px;
   text-align: center;
