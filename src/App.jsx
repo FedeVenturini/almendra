@@ -5,8 +5,13 @@ import Home from './pages/Home/Home'
 import ProductDetail from './pages/ProductDetail/ProductDetail'
 import CartPage from './pages/CartPage/CartPage'
 import Admin from './pages/Admin/Admin'
+import ComingSoon from './pages/ComingSoon/ComingSoon'
+
+const COMING_SOON = true
 
 function App() {
+  if (COMING_SOON) return <ComingSoon />
+
   return (
     <>
       <Navbar />
