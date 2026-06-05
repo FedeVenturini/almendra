@@ -10,20 +10,24 @@ import ComingSoon from './pages/ComingSoon/ComingSoon'
 const COMING_SOON = true
 
 function App() {
-  if (COMING_SOON) return <ComingSoon />
-
   return (
     <>
-      <Navbar />
+      {!COMING_SOON && <Navbar />}
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/producto/:slug" element={<ProductDetail />} />
-          <Route path="/carrito" element={<CartPage />} />
           <Route path="/admin" element={<Admin />} />
+          {COMING_SOON ? (
+            <Route path="*" element={<ComingSoon />} />
+          ) : (
+            <>
+              <Route path="/" element={<Home />} />
+              <Route path="/producto/:slug" element={<ProductDetail />} />
+              <Route path="/carrito" element={<CartPage />} />
+            </>
+          )}
         </Routes>
       </main>
-      <Footer />
+      {!COMING_SOON && <Footer />}
     </>
   )
 }
