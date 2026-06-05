@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import { categories } from '../../data/products'
 import { useProducts } from '../../hooks/useProducts'
+import { usePricing } from '../../context/PricingContext'
 import ProductCard from '../../components/ProductCard/ProductCard'
+import WholesaleModal from '../../components/WholesaleModal/WholesaleModal'
 import styles from './Home.module.css'
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState('todos')
+  const [showWholesale, setShowWholesale] = useState(false)
   const { products } = useProducts()
+  const { mode, exitWholesale } = usePricing()
 
   const filtered = activeCategory === 'todos'
     ? products
@@ -46,6 +50,17 @@ export default function Home() {
           </div>
         </div>
 
+        {mode === 'wholesale' ? (
+          <div className={styles.wholesaleBadge}>
+            🏪 Estás viendo precios mayoristas
+            <button className={styles.exitWholesale} onClick={exitWholesale}>Salir</button>
+          </div>
+        ) : (
+          <button className={styles.wholesaleBtn} onClick={() => setShowWholesale(true)}>
+            ¿Sos revendedor? Accedé a precios mayoristas
+          </button>
+        )}
+
         <section id="productos" className={styles.productsSection}>
           <h2 className={styles.sectionTitle}>Nuestros sabores</h2>
 
@@ -68,6 +83,8 @@ export default function Home() {
           </div>
         </section>
       </div>
+
+      {showWholesale && <WholesaleModal onClose={() => setShowWholesale(false)} />}
     </div>
   )
 }

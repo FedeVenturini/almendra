@@ -98,6 +98,45 @@
   object-fit: cover;
 }
 
+.wholesaleBtn {
+  width: 100%;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-secondary);
+  background: transparent;
+  border: 1px dashed #96775C;
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  transition: all 0.2s;
+}
+
+.wholesaleBtn:hover {
+  background: #E1C8AB;
+  border-style: solid;
+}
+
+.wholesaleBadge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-dark);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+}
+
+.exitWholesale {
+  font-size: 12px;
+  color: var(--color-accent);
+  background: transparent;
+  text-decoration: underline;
+}
+
 .sectionTitle {
   font-family: var(--font-serif);
   font-size: 24px;

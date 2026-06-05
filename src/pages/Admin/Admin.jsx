@@ -85,8 +85,8 @@ export default function Admin() {
   const summary = buildSummary(filteredOrders)
 
   const catalogWithNames = staticProducts.map(p => {
-    const row = catalog.find(r => r.id === p.id) || { price: 0, stock: 0 }
-    return { ...p, price: row.price, stock: row.stock }
+    const row = catalog.find(r => r.id === p.id) || { price: 0, wholesale_price: 0, stock: 0 }
+    return { ...p, price: row.price, wholesale_price: row.wholesale_price, stock: row.stock }
   })
 
   const startEdit = (id, field, value) => {
@@ -214,12 +214,14 @@ export default function Admin() {
         <div className={styles.productTable}>
           <div className={styles.productTableHeader}>
             <span>Producto</span>
-            <span className={styles.colCenter}>Precio</span>
+            <span className={styles.colCenter}>Minorista</span>
+            <span className={styles.colCenter}>Mayorista</span>
             <span className={styles.colCenter}>Stock</span>
           </div>
           {catalogLoading && <p className={styles.empty}>Cargando...</p>}
           {catalogWithNames.map(p => {
             const priceKey = `${p.id}-price`
+            const wholesaleKey = `${p.id}-wholesale_price`
             const stockKey = `${p.id}-stock`
             return (
               <div key={p.id} className={styles.productRow}>
@@ -228,15 +230,9 @@ export default function Admin() {
                 <div className={styles.colCenter}>
                   {priceKey in editing ? (
                     <div className={styles.editCell}>
-                      <input
-                        className={styles.editInput}
-                        type="number"
-                        min="0"
-                        value={editing[priceKey]}
+                      <input className={styles.editInput} type="number" min="0" value={editing[priceKey]}
                         onChange={e => handleEditChange(p.id, 'price', e.target.value)}
-                        onKeyDown={e => e.key === 'Enter' && saveField(p.id, 'price')}
-                        autoFocus
-                      />
+                        onKeyDown={e => e.key === 'Enter' && saveField(p.id, 'price')} autoFocus />
                       <button className={styles.saveBtn} onClick={() => saveField(p.id, 'price')} disabled={saving[priceKey]}>
                         {saving[priceKey] ? '...' : '✓'}
                       </button>
@@ -249,17 +245,28 @@ export default function Admin() {
                 </div>
 
                 <div className={styles.colCenter}>
+                  {wholesaleKey in editing ? (
+                    <div className={styles.editCell}>
+                      <input className={styles.editInput} type="number" min="0" value={editing[wholesaleKey]}
+                        onChange={e => handleEditChange(p.id, 'wholesale_price', e.target.value)}
+                        onKeyDown={e => e.key === 'Enter' && saveField(p.id, 'wholesale_price')} autoFocus />
+                      <button className={styles.saveBtn} onClick={() => saveField(p.id, 'wholesale_price')} disabled={saving[wholesaleKey]}>
+                        {saving[wholesaleKey] ? '...' : '✓'}
+                      </button>
+                    </div>
+                  ) : (
+                    <button className={styles.fieldBtn} onClick={() => startEdit(p.id, 'wholesale_price', p.wholesale_price)}>
+                      {p.wholesale_price > 0 ? `$${p.wholesale_price.toLocaleString('es-AR')}` : '— Agregar'}
+                    </button>
+                  )}
+                </div>
+
+                <div className={styles.colCenter}>
                   {stockKey in editing ? (
                     <div className={styles.editCell}>
-                      <input
-                        className={styles.editInput}
-                        type="number"
-                        min="0"
-                        value={editing[stockKey]}
+                      <input className={styles.editInput} type="number" min="0" value={editing[stockKey]}
                         onChange={e => handleEditChange(p.id, 'stock', e.target.value)}
-                        onKeyDown={e => e.key === 'Enter' && saveField(p.id, 'stock')}
-                        autoFocus
-                      />
+                        onKeyDown={e => e.key === 'Enter' && saveField(p.id, 'stock')} autoFocus />
                       <button className={styles.saveBtn} onClick={() => saveField(p.id, 'stock')} disabled={saving[stockKey]}>
                         {saving[stockKey] ? '...' : '✓'}
                       </button>
