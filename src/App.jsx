@@ -7,7 +7,7 @@ import CartPage from './pages/CartPage/CartPage'
 import Admin from './pages/Admin/Admin'
 import ComingSoon from './pages/ComingSoon/ComingSoon'
 
-const COMING_SOON = false
+const COMING_SOON = true
 
 function App() {
   return (
