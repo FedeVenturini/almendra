@@ -121,22 +121,25 @@
 }
 
 .wholesaleBtn {
-  width: 100%;
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 13px;
   font-weight: 500;
   color: var(--color-secondary);
   background: transparent;
   border: 1px dashed #96775C;
-  border-radius: var(--radius-sm);
-  padding: 10px 16px;
+  border-radius: 100px;
+  padding: 8px 18px;
   margin-bottom: 20px;
-  transition: all 0.2s;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
 }
 
 .wholesaleBtn:hover {
   background: #E1C8AB;
   border-style: solid;
+  border-color: var(--color-secondary);
+  transform: translateY(-1px);
 }
 
 .wholesaleBadge {

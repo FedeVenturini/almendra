@@ -92,9 +92,11 @@ export default function Home() {
             <button className={styles.exitWholesale} onClick={exitWholesale}>Salir</button>
           </div>
         ) : (
-          <button className={styles.wholesaleBtn} onClick={() => setShowWholesale(true)}>
-            ¿Sos revendedor? Accedé a precios mayoristas
-          </button>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <button className={styles.wholesaleBtn} onClick={() => setShowWholesale(true)}>
+              🏪 ¿Sos revendedor? Accedé a precios <strong>mayoristas</strong>
+            </button>
+          </div>
         )}
 
         <section id="productos" className={styles.productsSection}>
