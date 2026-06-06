@@ -7,10 +7,9 @@ import styles from './ProductDetail.module.css'
 export default function ProductDetail() {
   const { slug } = useParams()
   const navigate = useNavigate()
-  const { addItem } = useCart()
+  const { cart, addItem, updateQuantity } = useCart()
   const { products, loading } = useProducts()
   const [activeImg, setActiveImg] = useState(0)
-  const [added, setAdded] = useState(false)
 
   if (loading) return <div className={styles.notFound}><p>Cargando...</p></div>
 
@@ -23,11 +22,8 @@ export default function ProductDetail() {
     </div>
   )
 
-  const handleAdd = () => {
-    addItem(product)
-    setAdded(true)
-    setTimeout(() => setAdded(false), 1500)
-  }
+  const cartItem = cart.find(i => i.id === product.id)
+  const qty = cartItem?.quantity ?? 0
 
   return (
     <div className={styles.page}>
@@ -66,9 +62,17 @@ export default function ProductDetail() {
           : <p className={styles.priceConsult}>Consultá el precio</p>
         }
         <p className={styles.description}>{product.description}</p>
-        <button className={`${styles.addBtn} ${added ? styles.addedBtn : ''}`} onClick={handleAdd}>
-          {added ? '✓ Agregado al carrito' : 'Agregar al carrito'}
-        </button>
+        {qty === 0 ? (
+          <button className={styles.addBtn} onClick={() => addItem(product)}>
+            Agregar al carrito
+          </button>
+        ) : (
+          <div className={styles.cartControl}>
+            <button className={styles.ctrlBtn} onClick={() => updateQuantity(product.id, qty - 1)}>−</button>
+            <span className={styles.ctrlQty}>{qty} en el carrito</span>
+            <button className={styles.ctrlBtn} onClick={() => addItem(product)}>+</button>
+          </div>
+        )}
       </div>
     </div>
   )

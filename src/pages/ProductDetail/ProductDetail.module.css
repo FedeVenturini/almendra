@@ -83,11 +83,42 @@
 }
 
 .addBtn:hover {
-  background: #5a4030;
+  background: #a85556;
 }
 
-.addedBtn {
-  background: #2d6a4f;
+/* Contador − qty + una vez que hay algo en el carrito */
+.cartControl {
+  display: flex;
+  align-items: center;
+  background: var(--color-primary);
+  border-radius: 100px;
+  padding: 5px;
+}
+
+.ctrlBtn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.ctrlBtn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.ctrlQty {
+  flex: 1;
+  text-align: center;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .priceConsult {
