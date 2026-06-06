@@ -84,6 +84,16 @@
   font-weight: 600;
   padding: 10px 18px;
   border-radius: 100px;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.ctaButton:hover {
+  background: #E1C8AB;
+  transform: translateY(-2px);
+}
+
+.ctaButton:active {
+  transform: translateY(0px) scale(0.97);
 }
 
 .ctaImage {
