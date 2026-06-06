@@ -13,6 +13,7 @@ const COMING_SOON = false
 function App() {
   const location = useLocation()
   const isAdmin = location.pathname === '/admin'
+  const isDetail = location.pathname.startsWith('/producto/')
 
   if (COMING_SOON && !isAdmin) return <ComingSoon />
 
@@ -27,7 +28,7 @@ function App() {
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
-      <Footer />
+      {!isDetail && <Footer />}
     </>
   )
 }
