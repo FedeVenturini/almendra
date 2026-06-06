@@ -3,7 +3,9 @@ import styles from './Footer.module.css'
 export default function Footer() {
   return (
     <footer className={styles.footer}>
-      <img src="/images/Logo.png" alt="Almendra" className={styles.logo} />
+      <a href="#top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <img src="/images/Logo.png" alt="Almendra" className={styles.logo} />
+      </a>
       <p className={styles.tagline}>Panadería artesanal sin gluten</p>
 
       <div className={styles.links}>
