@@ -253,7 +253,12 @@ export default function Admin() {
                 <div key={order.id} className={styles.orderCard}>
                   <div className={styles.orderHeader}>
                     <div>
-                      <p className={styles.orderName}>{order.customer_name}</p>
+                      <div className={styles.orderNameRow}>
+                        <p className={styles.orderName}>{order.customer_name}</p>
+                        <span className={`${styles.modeBadge} ${order.pricing_mode === 'wholesale' ? styles.modeBadgeWholesale : styles.modeBadgeRetail}`}>
+                          {order.pricing_mode === 'wholesale' ? 'Mayorista' : 'Minorista'}
+                        </span>
+                      </div>
                       <p className={styles.orderContact}>{order.customer_whatsapp} · {order.customer_email}</p>
                     </div>
                     <div className={styles.orderMeta}>

@@ -411,6 +411,32 @@
   opacity: 0.5;
 }
 
+.orderNameRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.modeBadge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 100px;
+}
+
+.modeBadgeRetail {
+  background: #e8f4e8;
+  color: #2d6a4f;
+}
+
+.modeBadgeWholesale {
+  background: #fff3cd;
+  color: #856404;
+}
+
 .sectionHeader {
   display: flex;
   align-items: center;

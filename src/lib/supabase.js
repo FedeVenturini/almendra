@@ -19,7 +19,7 @@ export async function updateProductCatalog(id, fields) {
   if (error) throw error
 }
 
-export async function saveOrder({ customer, items, total }) {
+export async function saveOrder({ customer, items, total, pricing_mode = 'retail' }) {
   const { data, error } = await supabase
     .from('orders')
     .insert([{
@@ -28,6 +28,7 @@ export async function saveOrder({ customer, items, total }) {
       customer_email: customer.email,
       items,
       total,
+      pricing_mode,
       created_at: new Date().toISOString(),
     }])
     .select()

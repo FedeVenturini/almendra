@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { saveOrder } from '../../lib/supabase'
+import { usePricing } from '../../context/PricingContext'
 import styles from './CheckoutForm.module.css'
 
 const WHATSAPP_NUMBER = '543564349049'
@@ -16,6 +17,7 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
   const [form, setForm] = useState({ name: '', whatsapp: '', email: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const { mode } = usePricing()
 
   const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
 
@@ -29,6 +31,7 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
         customer: form,
         items: cart.map(i => ({ id: i.id, name: i.name, quantity: i.quantity, price: i.price })),
         total,
+        pricing_mode: mode,
       })
 
       const msg = buildWhatsAppMessage(form, cart, total)
