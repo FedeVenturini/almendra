@@ -25,12 +25,59 @@ const MODALS = {
   },
   noDevoto: {
     title: '¿No sos de Devoto?',
-    content: null,
-    text: 'Aunque somos de Devoto, podemos coordinar envíos o puntos de encuentro para otras zonas. Escribinos por WhatsApp y buscamos la mejor opción para vos.\n\nTambién contamos con compradores mayoristas en distintas localidades. Si te interesa revender nuestros productos, entrá al modo mayorista desde la página principal.',
-    cta: {
-      label: '💬 Escribinos por WhatsApp',
-      href: 'https://wa.me/543564349049?text=Hola!%20Quiero%20consultar%20sobre%20env%C3%ADos%20fuera%20de%20Devoto',
-    },
+    intro: 'Para todo aquel que no sea de Devoto, te contamos los distintos puntos de venta que tenemos para que puedas disfrutar de todos nuestros productos.',
+    cities: [
+      {
+        city: 'San Francisco',
+        points: [
+          {
+            name: 'Pame',
+            ig: 'https://www.instagram.com/glutennogracias_/?hl=es',
+            tel: '3564411843',
+            note: 'Stock disponible para entrega directa.',
+          },
+          {
+            name: 'Cele',
+            ig: null,
+            tel: '3564683593',
+            note: 'Trabaja a pedido, podés encargar lo que necesites con anticipación.',
+          },
+        ],
+      },
+      {
+        city: 'Zenón Pereyra',
+        points: [
+          {
+            name: 'Yani',
+            ig: null,
+            tel: '3564683593',
+            note: 'Trabaja a pedido, podés encargar lo que necesites con anticipación.',
+          },
+        ],
+      },
+      {
+        city: 'Freyre',
+        points: [
+          {
+            name: 'Pame',
+            ig: 'https://www.instagram.com/glutennogracias_/?hl=es',
+            tel: '3564411843',
+            note: 'Stock disponible para entrega directa.',
+          },
+        ],
+      },
+      {
+        city: 'El Tío',
+        points: [
+          {
+            name: 'Pame',
+            ig: 'https://www.instagram.com/glutennogracias_/?hl=es',
+            tel: '3564411843',
+            note: 'Stock disponible para entrega directa.',
+          },
+        ],
+      },
+    ],
   },
   howItWorks: {
     title: '¿Cómo funciona el pedido?',
@@ -97,12 +144,24 @@ export default function InfoSection() {
             {/* No Devoto */}
             {open === 'noDevoto' && (
               <div className={styles.textBlock}>
-                {modal.text.split('\n\n').map((p, i) => (
-                  <p key={i} className={styles.modalText}>{p}</p>
+                <p className={styles.modalText}>{modal.intro}</p>
+                {modal.cities.map((c, i) => (
+                  <div key={i} className={styles.cityBlock}>
+                    <p className={styles.cityName}>📍 {c.city}</p>
+                    {c.points.map((p, j) => (
+                      <div key={j} className={styles.pointCard}>
+                        <p className={styles.pointName}>🤎 {p.name}</p>
+                        <p className={styles.pointNote}>{p.note}</p>
+                        <div className={styles.pointLinks}>
+                          <a href={`tel:${p.tel}`} className={styles.pointTel}>📞 {p.tel}</a>
+                          {p.ig && (
+                            <a href={p.ig} target="_blank" rel="noopener noreferrer" className={styles.pointIg}>Instagram →</a>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 ))}
-                <a href={modal.cta.href} target="_blank" rel="noopener noreferrer" className={styles.modalCta}>
-                  {modal.cta.label}
-                </a>
               </div>
             )}
 

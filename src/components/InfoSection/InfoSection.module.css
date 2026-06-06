@@ -182,6 +182,71 @@
   background: #1ebe5c;
 }
 
+/* Ciudades y puntos de venta */
+.cityBlock {
+  margin-top: 4px;
+}
+
+.cityName {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pointCard {
+  background: #E1C8AB;
+  border: 1px solid #96775C;
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+
+.pointName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.pointNote {
+  font-size: 12px;
+  color: var(--color-text-light);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.pointLinks {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pointTel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  background: #fff;
+  border: 1px solid #96775C;
+  border-radius: 100px;
+  padding: 4px 12px;
+  transition: background 0.15s;
+}
+
+.pointTel:hover {
+  background: #d4b896;
+}
+
+.pointIg {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
 /* Cómo funciona */
 .stepsList {
   display: flex;
