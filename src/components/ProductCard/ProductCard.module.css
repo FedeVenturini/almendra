@@ -1,5 +1,4 @@
 .card {
-  display: block;
   background: #F3DBC3;
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -27,10 +26,14 @@
   color: var(--color-primary);
 }
 
-.nueva  { background: #d4edda; color: #2d6a4f; }
-.nuevo  { background: #d4edda; color: #2d6a4f; }
-.limited { background: #f8d7da; color: #842029; }
+.nueva    { background: #d4edda; color: #2d6a4f; }
+.nuevo    { background: #d4edda; color: #2d6a4f; }
+.limited  { background: #f8d7da; color: #842029; }
 .temporada { background: #d1e7dd; color: #0a3622; }
+
+.imageLink {
+  display: block;
+}
 
 .imageWrap {
   aspect-ratio: 1;
@@ -49,21 +52,84 @@
   transform: scale(1.04);
 }
 
+/* Fila inferior: nombre + botón */
 .info {
-  padding: 12px 14px 16px;
+  padding: 10px 12px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.nameLink {
+  flex: 1;
+  min-width: 0;
 }
 
 .name {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 400;
   color: var(--color-text);
-  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.description {
-  font-size: 12px;
-  color: var(--color-text-light);
-  line-height: 1.4;
+/* Botón + inicial */
+.addBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.addBtn:hover {
+  background: #a85556;
+  transform: scale(1.1);
+}
+
+/* Contador − qty + */
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-primary);
+  border-radius: 100px;
+  padding: 4px 6px;
+  flex-shrink: 0;
+}
+
+.counterBtn {
+  color: #fff;
+  font-size: 17px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.15s;
+}
+
+.counterBtn:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.counterQty {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  min-width: 18px;
+  text-align: center;
 }
