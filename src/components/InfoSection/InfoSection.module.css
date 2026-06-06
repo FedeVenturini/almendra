@@ -1,0 +1,246 @@
+/* ── Card ── */
+.card {
+  background: #F3DBC3;
+  border: 1px solid #96775C;
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin: 16px 20px 0;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.cardIcon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.cardText {
+  font-size: 13px;
+  color: var(--color-text-light);
+  line-height: 1.55;
+}
+
+.btnRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.infoBtn {
+  width: 100%;
+  text-align: left;
+  background: #E1C8AB;
+  border: 1px solid #96775C;
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  transition: background 0.18s, border-color 0.18s;
+}
+
+.infoBtn:hover {
+  background: #d4b896;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ── Overlay / Modal ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  animation: fadeIn 0.18s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal {
+  background: #F3DBC3;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  width: 100%;
+  max-width: 480px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 24px 20px 36px;
+  animation: slideUp 0.22s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.modalTitle {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.closeBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #E1C8AB;
+  border: 1px solid #96775C;
+  font-size: 14px;
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.closeBtn:hover {
+  background: #d4b896;
+}
+
+/* FAQ */
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.faqItem {
+  border-left: 3px solid var(--color-primary);
+  padding-left: 12px;
+}
+
+.faqQ {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.faqA {
+  font-size: 13px;
+  color: var(--color-text-light);
+  line-height: 1.55;
+}
+
+/* No Devoto */
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modalText {
+  font-size: 14px;
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+.modalCta {
+  display: inline-block;
+  margin-top: 4px;
+  background: #25D366;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 100px;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.modalCta:hover {
+  background: #1ebe5c;
+}
+
+/* Cómo funciona */
+.stepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.stepNum {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.stepLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 3px;
+}
+
+.stepDesc {
+  font-size: 13px;
+  color: var(--color-text-light);
+  line-height: 1.55;
+}
+
+@media (min-width: 768px) {
+  .overlay {
+    align-items: center;
+  }
+
+  .modal {
+    border-radius: var(--radius-lg);
+    max-width: 520px;
+    margin: 24px;
+  }
+
+  .btnRow {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .infoBtn {
+    flex: 1;
+    min-width: 160px;
+  }
+}

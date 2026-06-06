@@ -4,6 +4,7 @@ import { useProducts } from '../../hooks/useProducts'
 import { usePricing } from '../../context/PricingContext'
 import ProductCard from '../../components/ProductCard/ProductCard'
 import WholesaleModal from '../../components/WholesaleModal/WholesaleModal'
+import InfoSection from '../../components/InfoSection/InfoSection'
 import styles from './Home.module.css'
 
 const GROUPS = {
@@ -61,6 +62,8 @@ export default function Home() {
           onError={e => { e.target.style.display = 'none' }}
         />
       </div>
+
+      <InfoSection />
 
       <div className={styles.content}>
         <div className={styles.brand}>
