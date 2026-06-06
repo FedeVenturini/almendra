@@ -8,13 +8,14 @@ const WHATSAPP_NUMBER = '543564349049'
 function buildWhatsAppMessage(customer, items, total) {
   const lines = items.map(i => `• ${i.name} x${i.quantity}${i.price > 0 ? ` — $${(i.price * i.quantity).toLocaleString('es-AR')}` : ''}`)
   const totalLine = total > 0 ? `\n*Total: $${total.toLocaleString('es-AR')}*` : ''
+  const negocioLine = customer.negocio ? `\nNegocio: ${customer.negocio}` : ''
   return encodeURIComponent(
-    `¡Hola! Soy *${customer.name}* y quiero hacer este pedido:\n\n${lines.join('\n')}${totalLine}\n\nMi mail: ${customer.email}`
+    `¡Hola! Soy *${customer.name}* y quiero hacer este pedido:\n\n${lines.join('\n')}${totalLine}\n\nMi mail: ${customer.email}${negocioLine}`
   )
 }
 
 export default function CheckoutForm({ cart, total, onSuccess }) {
-  const [form, setForm] = useState({ name: '', whatsapp: '', email: '' })
+  const [form, setForm] = useState({ name: '', whatsapp: '', email: '', negocio: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const { mode } = usePricing()
@@ -86,6 +87,18 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
               required
             />
           </label>
+          {mode === 'wholesale' && (
+            <label className={styles.label}>
+              Empresa / Negocio
+              <input
+                className={styles.input}
+                name="negocio"
+                value={form.negocio}
+                onChange={handleChange}
+                placeholder="Nombre de tu negocio o empresa"
+              />
+            </label>
+          )}
 
           {error && <p className={styles.error}>{error}</p>}
 
