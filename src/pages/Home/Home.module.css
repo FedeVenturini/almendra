@@ -136,10 +136,10 @@
 }
 
 .wholesaleBtn:hover {
-  background: #E1C8AB;
+  background: #96775C;
   border-style: solid;
-  border-color: var(--color-secondary);
-  transform: translateY(-1px);
+  border-color: #96775C;
+  color: #fff;
 }
 
 .wholesaleBadge {
