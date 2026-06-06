@@ -31,7 +31,7 @@
 .imgCard {
   flex: 1;
   position: relative;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 2 / 3;
   border-radius: var(--radius-md);
   overflow: hidden;
   background-size: cover;
@@ -322,7 +322,7 @@
   }
 
   .imgCard {
-    aspect-ratio: 2 / 3;
+    aspect-ratio: 3 / 4;
   }
 
   .imgLabel {
