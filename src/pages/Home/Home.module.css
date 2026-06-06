@@ -149,16 +149,17 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .filterBtn {
   font-size: 13px;
-  padding: 6px 14px;
+  font-weight: 600;
+  padding: 8px 18px;
   border-radius: 100px;
-  border: 1px solid #E8A09E;
-  background: #E8A09E;
-  color: #fff;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text-light);
   transition: all 0.2s;
 }
 
@@ -173,8 +174,66 @@
   color: #fff !important;
 }
 
+/* Nivel 2 */
+.subFilters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding-left: 4px;
+}
+
+.subFilterBtn {
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-light);
+  transition: all 0.2s;
+}
+
+.subFilterBtn:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+.subFilterActive {
+  background: var(--color-secondary) !important;
+  border-color: var(--color-secondary) !important;
+  color: #fff !important;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .page {
+    max-width: 960px;
+  }
+
+  .hero {
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
+
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .ctaBanner {
+    padding: 32px 36px;
+  }
+
+  .ctaTitle {
+    font-size: 32px;
+  }
+
+  .ctaImage {
+    width: 150px;
+    height: 150px;
+  }
 }

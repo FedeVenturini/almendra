@@ -6,15 +6,34 @@ import ProductCard from '../../components/ProductCard/ProductCard'
 import WholesaleModal from '../../components/WholesaleModal/WholesaleModal'
 import styles from './Home.module.css'
 
+const GROUPS = {
+  dulce:  { label: '🍫 Dulce',  cats: ['alfajores', 'cookies', 'galletas'] },
+  salado: { label: '🧀 Salado', cats: ['panes', 'chipas', 'marineras', 'quesitos', 'talitas'] },
+}
+
 export default function Home() {
+  const [activeGroup, setActiveGroup] = useState('todos')
   const [activeCategory, setActiveCategory] = useState('todos')
   const [showWholesale, setShowWholesale] = useState(false)
   const { products } = useProducts()
   const { mode, exitWholesale } = usePricing()
 
-  const filtered = activeCategory === 'todos'
-    ? products
-    : products.filter(p => p.category === activeCategory)
+  const handleGroupClick = (group) => {
+    setActiveGroup(group)
+    setActiveCategory('todos')
+  }
+
+  const subCategories = activeGroup !== 'todos'
+    ? categories.filter(c => GROUPS[activeGroup].cats.includes(c.id))
+    : []
+
+  const filtered = products.filter(p => {
+    if (activeGroup !== 'todos' && activeCategory === 'todos')
+      return GROUPS[activeGroup].cats.includes(p.category)
+    if (activeCategory !== 'todos')
+      return p.category === activeCategory
+    return true
+  })
 
   return (
     <div className={styles.page}>
@@ -64,17 +83,37 @@ export default function Home() {
         <section id="productos" className={styles.productsSection}>
           <h2 className={styles.sectionTitle}>Nuestros sabores</h2>
 
+          {/* Nivel 1: Todos / Dulce / Salado */}
           <div className={styles.filters}>
-            {categories.map(cat => (
+            <button
+              className={`${styles.filterBtn} ${activeGroup === 'todos' ? styles.filterActive : ''}`}
+              onClick={() => handleGroupClick('todos')}
+            >Todos</button>
+            {Object.entries(GROUPS).map(([key, g]) => (
               <button
-                key={cat.id}
-                className={`${styles.filterBtn} ${activeCategory === cat.id ? styles.filterActive : ''}`}
-                onClick={() => setActiveCategory(cat.id)}
-              >
-                {cat.label}
-              </button>
+                key={key}
+                className={`${styles.filterBtn} ${activeGroup === key ? styles.filterActive : ''}`}
+                onClick={() => handleGroupClick(key)}
+              >{g.label}</button>
             ))}
           </div>
+
+          {/* Nivel 2: subcategorías */}
+          {subCategories.length > 0 && (
+            <div className={styles.subFilters}>
+              <button
+                className={`${styles.subFilterBtn} ${activeCategory === 'todos' ? styles.subFilterActive : ''}`}
+                onClick={() => setActiveCategory('todos')}
+              >Todos</button>
+              {subCategories.map(cat => (
+                <button
+                  key={cat.id}
+                  className={`${styles.subFilterBtn} ${activeCategory === cat.id ? styles.subFilterActive : ''}`}
+                  onClick={() => setActiveCategory(cat.id)}
+                >{cat.label}</button>
+              ))}
+            </div>
+          )}
 
           <div className={styles.grid}>
             {filtered.map(product => (

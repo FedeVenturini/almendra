@@ -15,6 +15,13 @@
   justify-content: space-between;
 }
 
+@media (min-width: 768px) {
+  .nav {
+    max-width: 960px;
+    padding: 14px 32px;
+  }
+}
+
 .hamburger {
   display: flex;
   flex-direction: column;
