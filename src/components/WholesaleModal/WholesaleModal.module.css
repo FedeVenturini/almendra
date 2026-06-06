@@ -37,8 +37,15 @@
   gap: 12px;
 }
 
+.inputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .input {
-  padding: 12px 14px;
+  width: 100%;
+  padding: 12px 44px 12px 14px;
   border-radius: var(--radius-sm);
   border: 1px solid #96775C;
   background: #F3DBC3;
@@ -50,6 +57,21 @@
 
 .input:focus {
   border-color: var(--color-primary);
+}
+
+.eyeBtn {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  padding: 0;
+  transition: color 0.15s;
+}
+
+.eyeBtn:hover {
+  color: var(--color-text);
 }
 
 .inputError {
