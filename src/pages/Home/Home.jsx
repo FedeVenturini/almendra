@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { categories } from '../../data/products'
 import { useProducts } from '../../hooks/useProducts'
 import { usePricing } from '../../context/PricingContext'
@@ -15,8 +15,24 @@ export default function Home() {
   const [activeGroup, setActiveGroup] = useState('todos')
   const [activeCategory, setActiveCategory] = useState('todos')
   const [showWholesale, setShowWholesale] = useState(false)
+  const [carouselIndex, setCarouselIndex] = useState(0)
+  const [carouselVisible, setCarouselVisible] = useState(true)
   const { products } = useProducts()
   const { mode, exitWholesale } = usePricing()
+
+  const carouselImages = products.map(p => p.images[0]).filter(Boolean)
+
+  useEffect(() => {
+    if (carouselImages.length <= 1) return
+    const interval = setInterval(() => {
+      setCarouselVisible(false)
+      setTimeout(() => {
+        setCarouselIndex(i => (i + 1) % carouselImages.length)
+        setCarouselVisible(true)
+      }, 400)
+    }, 2500)
+    return () => clearInterval(interval)
+  }, [carouselImages.length])
 
   const handleGroupClick = (group) => {
     setActiveGroup(group)
@@ -62,8 +78,9 @@ export default function Home() {
           </div>
           <div className={styles.ctaImage}>
             <img
-              src={products[0]?.images[0]}
+              src={carouselImages[carouselIndex]}
               alt="Producto destacado"
+              className={carouselVisible ? styles.carouselVisible : styles.carouselHidden}
               onError={e => { e.target.src = '/images/placeholder.jpg' }}
             />
           </div>
