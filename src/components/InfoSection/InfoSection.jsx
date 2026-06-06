@@ -91,6 +91,27 @@ const MODALS = {
   },
 }
 
+const CARDS = [
+  {
+    key: 'faq',
+    label: 'Preguntas\nfrecuentes',
+    image: '/images/products/cookies-ny.jpg',
+    color: 'rgba(197, 107, 108, 0.62)',
+  },
+  {
+    key: 'noDevoto',
+    label: '¿No sos\nde Devoto?',
+    image: '/images/products/pan-lactal-1.jpg',
+    color: 'rgba(150, 119, 92, 0.62)',
+  },
+  {
+    key: 'howItWorks',
+    label: '¿Cómo funciona\nel pedido?',
+    image: '/images/products/alfajor-chocolate-1.jpg',
+    color: 'rgba(90, 54, 29, 0.62)',
+  },
+]
+
 export default function InfoSection() {
   const [open, setOpen] = useState(null)
 
@@ -98,26 +119,27 @@ export default function InfoSection() {
 
   return (
     <>
-      <div className={styles.card}>
-        <div className={styles.cardHeader}>
-          <span className={styles.cardIcon}>🌾</span>
-          <div>
-            <h2 className={styles.cardTitle}>Quiénes somos</h2>
-            <p className={styles.cardText}>
-              Somos una panadería artesanal sin TACC de Devoto, Entre Ríos. Elaboramos cada producto con amor y cuidado, pensando en quienes necesitan comer rico sin gluten.
-            </p>
-          </div>
-        </div>
-        <div className={styles.btnRow}>
-          <button className={styles.infoBtn} onClick={() => setOpen('faq')}>
-            Preguntas frecuentes
-          </button>
-          <button className={styles.infoBtn} onClick={() => setOpen('noDevoto')}>
-            ¿No sos de Devoto?
-          </button>
-          <button className={styles.infoBtn} onClick={() => setOpen('howItWorks')}>
-            ¿Cómo funciona el pedido?
-          </button>
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>Quiénes somos</h2>
+        <p className={styles.sectionText}>
+          Somos una panadería artesanal sin TACC de Devoto, Entre Ríos. Elaboramos cada producto con amor y cuidado, pensando en quienes necesitan comer rico sin gluten.
+        </p>
+        <div className={styles.cardsRow}>
+          {CARDS.map(card => (
+            <button
+              key={card.key}
+              className={styles.imgCard}
+              style={{ backgroundImage: `url(${card.image})` }}
+              onClick={() => setOpen(card.key)}
+            >
+              <div className={styles.imgOverlay} style={{ background: card.color }} />
+              <span className={styles.imgLabel}>
+                {card.label.split('\n').map((line, i) => (
+                  <span key={i}>{line}<br /></span>
+                ))}
+              </span>
+            </button>
+          ))}
         </div>
       </div>
 
