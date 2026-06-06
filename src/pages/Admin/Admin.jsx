@@ -34,9 +34,10 @@ function downloadPriceTemplate(catalogWithNames) {
     Producto: p.name,
     'Precio Minorista': p.price,
     'Precio Mayorista': p.wholesale_price,
+    Stock: p.stock,
   }))
   const ws = XLSX.utils.json_to_sheet(rows)
-  ws['!cols'] = [{ wch: 24 }, { wch: 30 }, { wch: 18 }, { wch: 18 }]
+  ws['!cols'] = [{ wch: 24 }, { wch: 30 }, { wch: 18 }, { wch: 18 }, { wch: 10 }]
   const wb = XLSX.utils.book_new()
   XLSX.utils.book_append_sheet(wb, ws, 'Precios')
   XLSX.writeFile(wb, 'almendra-precios.xlsx')
@@ -53,13 +54,14 @@ async function importPricesFromExcel(file) {
     const id = row['id']
     const price = Number(row['Precio Minorista'])
     const wholesale_price = Number(row['Precio Mayorista'])
+    const stock = Number(row['Stock'])
     if (!id) continue
-    if (isNaN(price) || isNaN(wholesale_price)) {
+    if (isNaN(price) || isNaN(wholesale_price) || isNaN(stock)) {
       results.errors.push(id)
       continue
     }
     try {
-      await updateProductCatalog(id, { price, wholesale_price })
+      await updateProductCatalog(id, { price, wholesale_price, stock })
       results.ok++
     } catch {
       results.errors.push(id)
