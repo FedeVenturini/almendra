@@ -46,8 +46,8 @@
 }
 
 .link:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  background: #7a6149;
+  border-color: #7a6149;
 }
 
 .address {
