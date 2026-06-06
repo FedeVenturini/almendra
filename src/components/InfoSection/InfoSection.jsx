@@ -110,13 +110,13 @@ export default function InfoSection() {
         </div>
         <div className={styles.btnRow}>
           <button className={styles.infoBtn} onClick={() => setOpen('faq')}>
-            🙋 Preguntas frecuentes
+            Preguntas frecuentes
           </button>
           <button className={styles.infoBtn} onClick={() => setOpen('noDevoto')}>
-            📍 ¿No sos de Devoto?
+            ¿No sos de Devoto?
           </button>
           <button className={styles.infoBtn} onClick={() => setOpen('howItWorks')}>
-            🛒 ¿Cómo funciona el pedido?
+            ¿Cómo funciona el pedido?
           </button>
         </div>
       </div>
