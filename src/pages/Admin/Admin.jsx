@@ -28,6 +28,46 @@ function getRangeForPreset(preset) {
   return null
 }
 
+function downloadPriceTemplate(catalogWithNames) {
+  const rows = catalogWithNames.map(p => ({
+    id: p.id,
+    Producto: p.name,
+    'Precio Minorista': p.price,
+    'Precio Mayorista': p.wholesale_price,
+  }))
+  const ws = XLSX.utils.json_to_sheet(rows)
+  ws['!cols'] = [{ wch: 24 }, { wch: 30 }, { wch: 18 }, { wch: 18 }]
+  const wb = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(wb, ws, 'Precios')
+  XLSX.writeFile(wb, 'almendra-precios.xlsx')
+}
+
+async function importPricesFromExcel(file) {
+  const buffer = await file.arrayBuffer()
+  const wb = XLSX.read(buffer)
+  const ws = wb.Sheets[wb.SheetNames[0]]
+  const rows = XLSX.utils.sheet_to_json(ws)
+
+  const results = { ok: 0, errors: [] }
+  for (const row of rows) {
+    const id = row['id']
+    const price = Number(row['Precio Minorista'])
+    const wholesale_price = Number(row['Precio Mayorista'])
+    if (!id) continue
+    if (isNaN(price) || isNaN(wholesale_price)) {
+      results.errors.push(id)
+      continue
+    }
+    try {
+      await updateProductCatalog(id, { price, wholesale_price })
+      results.ok++
+    } catch {
+      results.errors.push(id)
+    }
+  }
+  return results
+}
+
 function buildSummary(orders) {
   return orders.reduce((acc, order) => {
     order.items.forEach(item => {
@@ -112,6 +152,8 @@ export default function Admin() {
   const [catalogLoading, setCatalogLoading] = useState(false)
   const [editing, setEditing] = useState({})
   const [saving, setSaving] = useState({})
+  const [importing, setImporting] = useState(false)
+  const [importResult, setImportResult] = useState(null)
 
   const login = e => {
     e.preventDefault()
@@ -153,6 +195,20 @@ export default function Admin() {
 
   const handleEditChange = (id, field, value) => {
     setEditing(e => ({ ...e, [`${id}-${field}`]: value }))
+  }
+
+  const handleImport = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setImporting(true)
+    setImportResult(null)
+    const results = await importPricesFromExcel(file)
+    // Recargar catálogo desde Supabase
+    const { data } = await supabase.from('product_catalog').select('*')
+    setCatalog(data || [])
+    setImporting(false)
+    setImportResult(results)
+    e.target.value = ''
   }
 
   const saveField = async (id, field) => {
@@ -283,6 +339,37 @@ export default function Admin() {
       )}
 
       {tab === 'productos' && (
+        <div>
+          {/* Barra de importación/exportación */}
+          <div className={styles.importBar}>
+            <button
+              className={styles.templateBtn}
+              onClick={() => downloadPriceTemplate(catalogWithNames)}
+            >
+              ↓ Descargar plantilla
+            </button>
+
+            <label className={`${styles.importBtn} ${importing ? styles.importBtnLoading : ''}`}>
+              {importing ? 'Importando...' : '↑ Importar Excel'}
+              <input
+                type="file"
+                accept=".xlsx,.xls"
+                style={{ display: 'none' }}
+                onChange={handleImport}
+                disabled={importing}
+              />
+            </label>
+          </div>
+
+          {importResult && (
+            <div className={importResult.errors.length ? styles.importError : styles.importSuccess}>
+              {importResult.errors.length === 0
+                ? `✓ ${importResult.ok} productos actualizados correctamente.`
+                : `✓ ${importResult.ok} actualizados. Error en: ${importResult.errors.join(', ')}`
+              }
+            </div>
+          )}
+
         <div className={styles.productTable}>
           <div className={styles.productTableHeader}>
             <span>Producto</span>
@@ -352,6 +439,7 @@ export default function Admin() {
               </div>
             )
           })}
+        </div>
         </div>
       )}
     </div>
