@@ -87,7 +87,6 @@
 }
 
 .ctaImage {
-  position: relative;
   width: 110px;
   height: 110px;
   border-radius: var(--radius-sm);
@@ -96,26 +95,19 @@
   background: var(--color-accent);
 }
 
-.carouselImg {
-  position: absolute;
-  inset: 0;
+.ctaImage img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: var(--radius-sm);
-  transition: opacity 0.8s ease;
+  transition: opacity 0.4s ease;
 }
 
-.carouselIn {
+.carouselVisible {
   opacity: 1;
 }
 
-.carouselOut {
+.carouselHidden {
   opacity: 0;
-}
-
-.carouselNext {
-  opacity: 1;
 }
 
 .wholesaleBtn {

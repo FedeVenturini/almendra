@@ -15,9 +15,8 @@ export default function Home() {
   const [activeGroup, setActiveGroup] = useState('todos')
   const [activeCategory, setActiveCategory] = useState('todos')
   const [showWholesale, setShowWholesale] = useState(false)
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [nextIndex, setNextIndex] = useState(1)
-  const [transitioning, setTransitioning] = useState(false)
+  const [carouselIndex, setCarouselIndex] = useState(0)
+  const [carouselVisible, setCarouselVisible] = useState(true)
   const { products } = useProducts()
   const { mode, exitWholesale } = usePricing()
 
@@ -26,16 +25,14 @@ export default function Home() {
   useEffect(() => {
     if (carouselImages.length <= 1) return
     const interval = setInterval(() => {
-      const next = (currentIndex + 1) % carouselImages.length
-      setNextIndex(next)
-      setTransitioning(true)
+      setCarouselVisible(false)
       setTimeout(() => {
-        setCurrentIndex(next)
-        setTransitioning(false)
-      }, 800)
+        setCarouselIndex(i => (i + 1) % carouselImages.length)
+        setCarouselVisible(true)
+      }, 400)
     }, 5000)
     return () => clearInterval(interval)
-  }, [currentIndex, carouselImages.length])
+  }, [carouselImages.length])
 
   const handleGroupClick = (group) => {
     setActiveGroup(group)
@@ -81,19 +78,11 @@ export default function Home() {
           </div>
           <div className={styles.ctaImage}>
             <img
-              src={carouselImages[currentIndex]}
+              src={carouselImages[carouselIndex]}
               alt="Producto destacado"
-              className={`${styles.carouselImg} ${transitioning ? styles.carouselOut : styles.carouselIn}`}
+              className={carouselVisible ? styles.carouselVisible : styles.carouselHidden}
               onError={e => { e.target.src = '/images/placeholder.jpg' }}
             />
-            {transitioning && (
-              <img
-                src={carouselImages[nextIndex]}
-                alt="Producto destacado"
-                className={`${styles.carouselImg} ${styles.carouselNext}`}
-                onError={e => { e.target.src = '/images/placeholder.jpg' }}
-              />
-            )}
           </div>
         </div>
 
