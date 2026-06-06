@@ -138,6 +138,16 @@
   padding: 14px;
 }
 
+.disclaimer {
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--color-text-light);
+  line-height: 1.5;
+  text-align: center;
+  font-style: italic;
+  opacity: 0.75;
+}
+
 .notFound {
   padding: 80px 20px;
   text-align: center;

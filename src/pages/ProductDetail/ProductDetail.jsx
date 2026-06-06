@@ -73,6 +73,9 @@ export default function ProductDetail() {
             <button className={styles.ctrlBtn} onClick={() => addItem(product)}>+</button>
           </div>
         )}
+        <p className={styles.disclaimer}>
+          * Los precios son orientativos y están sujetos a cambios sin previo aviso. El precio final será confirmado al coordinar el pedido.
+        </p>
       </div>
     </div>
   )
