@@ -5,17 +5,17 @@
 
 .hero {
   width: 100%;
-  max-height: 180px;
-  background: var(--color-accent);
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  padding: 16px 20px 0;
 }
 
 .heroImage {
+  max-width: 340px;
   width: 100%;
-  height: 180px;
-  object-fit: cover;
-  object-position: center top;
+  height: auto;
   display: block;
+  border-radius: var(--radius-md);
 }
 
 .content {
