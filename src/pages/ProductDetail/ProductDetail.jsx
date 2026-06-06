@@ -66,14 +66,9 @@ export default function ProductDetail() {
           : <p className={styles.priceConsult}>Consultá el precio</p>
         }
         <p className={styles.description}>{product.description}</p>
-        {product.stock === 0
-          ? <p className={styles.outOfStock}>Sin stock disponible</p>
-          : (
-            <button className={`${styles.addBtn} ${added ? styles.addedBtn : ''}`} onClick={handleAdd}>
-              {added ? '✓ Agregado al carrito' : 'Agregar al carrito'}
-            </button>
-          )
-        }
+        <button className={`${styles.addBtn} ${added ? styles.addedBtn : ''}`} onClick={handleAdd}>
+          {added ? '✓ Agregado al carrito' : 'Agregar al carrito'}
+        </button>
       </div>
     </div>
   )

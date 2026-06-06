@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import * as XLSX from 'xlsx'
 import { supabase, updateProductCatalog } from '../../lib/supabase'
 import { products as staticProducts } from '../../data/products'
 import styles from './Admin.module.css'
@@ -34,6 +35,63 @@ function buildSummary(orders) {
     })
     return acc
   }, {})
+}
+
+function exportToExcel(orders, dateLabel) {
+  // Compradores únicos (columnas)
+  const buyers = [...new Set(orders.map(o => o.customer_name))]
+
+  // Pivot: data[producto][comprador] = cantidad
+  const pivot = {}
+  orders.forEach(order => {
+    order.items.forEach(item => {
+      if (!pivot[item.name]) pivot[item.name] = {}
+      pivot[item.name][order.customer_name] = (pivot[item.name][order.customer_name] || 0) + item.quantity
+    })
+  })
+
+  // Solo productos con total > 0
+  const productNames = Object.keys(pivot).filter(p =>
+    Object.values(pivot[p]).reduce((a, b) => a + b, 0) > 0
+  )
+
+  // Encabezado
+  const header = ['Producto', ...buyers, 'TOTAL']
+
+  // Filas de productos
+  const rows = productNames.map(product => {
+    let rowTotal = 0
+    const cells = buyers.map(buyer => {
+      const qty = pivot[product][buyer] || 0
+      rowTotal += qty
+      return qty > 0 ? qty : ''
+    })
+    return [product, ...cells, rowTotal]
+  })
+
+  // Fila totalizadora
+  const totalsRow = ['TOTAL']
+  let grandTotal = 0
+  buyers.forEach(buyer => {
+    const buyerTotal = productNames.reduce((sum, p) => sum + (pivot[p][buyer] || 0), 0)
+    totalsRow.push(buyerTotal)
+    grandTotal += buyerTotal
+  })
+  totalsRow.push(grandTotal)
+
+  // Armar hoja
+  const sheetData = [header, ...rows, totalsRow]
+  const ws = XLSX.utils.aoa_to_sheet(sheetData)
+
+  // Ancho de columnas automático
+  ws['!cols'] = header.map((_, i) => ({ wch: i === 0 ? 28 : 14 }))
+
+  // Estilo de la fila de totales (negrita) — SheetJS Community no soporta estilos ricos,
+  // pero el totalizador queda en la última fila claramente identificado
+
+  const wb = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(wb, ws, 'Pedidos')
+  XLSX.writeFile(wb, `almendra-pedidos-${dateLabel}.xlsx`)
 }
 
 export default function Admin() {
@@ -160,9 +218,18 @@ export default function Admin() {
 
           <div className={styles.main}>
             <section className={styles.section}>
-              <h2 className={styles.sectionTitle}>
-                Resumen — {filteredOrders.length} {filteredOrders.length === 1 ? 'pedido' : 'pedidos'}
-              </h2>
+              <div className={styles.sectionHeader}>
+                <h2 className={styles.sectionTitle}>
+                  Resumen — {filteredOrders.length} {filteredOrders.length === 1 ? 'pedido' : 'pedidos'}
+                </h2>
+                <button
+                  className={styles.exportBtn}
+                  onClick={() => exportToExcel(filteredOrders, activeRange?.from || 'periodo')}
+                  disabled={filteredOrders.length === 0}
+                >
+                  ↓ Exportar Excel
+                </button>
+              </div>
               {Object.keys(summary).length === 0
                 ? <p className={styles.empty}>Sin pedidos en este período.</p>
                 : (
