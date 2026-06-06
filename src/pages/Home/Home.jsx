@@ -15,8 +15,9 @@ export default function Home() {
   const [activeGroup, setActiveGroup] = useState('todos')
   const [activeCategory, setActiveCategory] = useState('todos')
   const [showWholesale, setShowWholesale] = useState(false)
-  const [carouselIndex, setCarouselIndex] = useState(0)
-  const [carouselVisible, setCarouselVisible] = useState(true)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [nextIndex, setNextIndex] = useState(1)
+  const [transitioning, setTransitioning] = useState(false)
   const { products } = useProducts()
   const { mode, exitWholesale } = usePricing()
 
@@ -25,14 +26,16 @@ export default function Home() {
   useEffect(() => {
     if (carouselImages.length <= 1) return
     const interval = setInterval(() => {
-      setCarouselVisible(false)
+      const next = (currentIndex + 1) % carouselImages.length
+      setNextIndex(next)
+      setTransitioning(true)
       setTimeout(() => {
-        setCarouselIndex(i => (i + 1) % carouselImages.length)
-        setCarouselVisible(true)
-      }, 400)
-    }, 2500)
+        setCurrentIndex(next)
+        setTransitioning(false)
+      }, 800)
+    }, 5000)
     return () => clearInterval(interval)
-  }, [carouselImages.length])
+  }, [currentIndex, carouselImages.length])
 
   const handleGroupClick = (group) => {
     setActiveGroup(group)
@@ -78,11 +81,19 @@ export default function Home() {
           </div>
           <div className={styles.ctaImage}>
             <img
-              src={carouselImages[carouselIndex]}
+              src={carouselImages[currentIndex]}
               alt="Producto destacado"
-              className={carouselVisible ? styles.carouselVisible : styles.carouselHidden}
+              className={`${styles.carouselImg} ${transitioning ? styles.carouselOut : styles.carouselIn}`}
               onError={e => { e.target.src = '/images/placeholder.jpg' }}
             />
+            {transitioning && (
+              <img
+                src={carouselImages[nextIndex]}
+                alt="Producto destacado"
+                className={`${styles.carouselImg} ${styles.carouselNext}`}
+                onError={e => { e.target.src = '/images/placeholder.jpg' }}
+              />
+            )}
           </div>
         </div>
 
