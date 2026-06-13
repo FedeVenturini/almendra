@@ -8,8 +8,8 @@ import InfoSection from '../../components/InfoSection/InfoSection'
 import styles from './Home.module.css'
 
 const GROUPS = {
-  dulce:  { label: '🍫 Dulce',  cats: ['alfajores', 'cookies', 'galletas'] },
-  salado: { label: '🧀 Salado', cats: ['panes', 'chipas', 'marineras', 'quesitos', 'talitas'] },
+  dulce:  { label: '🍫 Dulce',  cats: ['alfajores', 'cookies', 'budines', 'postres', 'galletitas'] },
+  salado: { label: '🧀 Salado', cats: ['panes', 'chipas', 'pastas', 'pizzas', 'tartas', 'marineras', 'talitas'] },
 }
 
 export default function Home() {
