@@ -13,13 +13,16 @@ export function useProducts() {
       .catch(() => setCatalog([]))
   }, [])
 
-  const products = staticProducts.map(p => {
-    const row = catalog?.find(r => r.id === p.id)
-    const retailPrice = row?.price ?? 0
-    const wholesalePrice = row?.wholesale_price ?? 0
-    const price = mode === 'wholesale' ? wholesalePrice : retailPrice
-    return { ...p, price, stock: row?.stock ?? 0 }
-  })
+  const products = staticProducts
+    .map(p => {
+      const row = catalog?.find(r => r.id === p.id)
+      const retailPrice = row?.price ?? 0
+      const wholesalePrice = row?.wholesale_price ?? 0
+      const price = mode === 'wholesale' ? wholesalePrice : retailPrice
+      const active = row?.active ?? true
+      return { ...p, price, stock: row?.stock ?? 0, active }
+    })
+    .filter(p => p.active)
 
   return { products, loading: catalog === null }
 }

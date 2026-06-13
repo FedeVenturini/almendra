@@ -203,9 +203,14 @@ export default function Admin() {
   const summary = buildSummary(filteredOrders)
 
   const catalogWithNames = staticProducts.map(p => {
-    const row = catalog.find(r => r.id === p.id) || { price: 0, wholesale_price: 0, stock: 0 }
-    return { ...p, price: row.price, wholesale_price: row.wholesale_price, stock: row.stock }
+    const row = catalog.find(r => r.id === p.id) || { price: 0, wholesale_price: 0, stock: 0, active: true }
+    return { ...p, price: row.price, wholesale_price: row.wholesale_price, stock: row.stock, active: row.active ?? true }
   })
+
+  const toggleActive = async (id, current) => {
+    await updateProductCatalog(id, { active: !current })
+    setCatalog(prev => prev.map(r => r.id === id ? { ...r, active: !current } : r))
+  }
 
   const startEdit = (id, field, value) => {
     setEditing(e => ({ ...e, [`${id}-${field}`]: String(value) }))
@@ -399,6 +404,7 @@ export default function Admin() {
             <span className={styles.colCenter}>Minorista</span>
             <span className={styles.colCenter}>Mayorista</span>
             <span className={styles.colCenter}>Stock</span>
+            <span className={styles.colCenter}>Visible</span>
           </div>
           {catalogLoading && <p className={styles.empty}>Cargando...</p>}
           {catalogWithNames.map(p => {
@@ -406,7 +412,7 @@ export default function Admin() {
             const wholesaleKey = `${p.id}-wholesale_price`
             const stockKey = `${p.id}-stock`
             return (
-              <div key={p.id} className={styles.productRow}>
+              <div key={p.id} className={`${styles.productRow} ${!p.active ? styles.productRowInactive : ''}`}>
                 <span className={styles.productName}>{p.name}</span>
 
                 <div className={styles.colCenter}>
@@ -458,6 +464,16 @@ export default function Admin() {
                       {p.stock} u.
                     </button>
                   )}
+                </div>
+
+                <div className={styles.colCenter}>
+                  <button
+                    className={`${styles.toggle} ${p.active ? styles.toggleOn : styles.toggleOff}`}
+                    onClick={() => toggleActive(p.id, p.active)}
+                    title={p.active ? 'Visible en tienda' : 'Oculto en tienda'}
+                  >
+                    <span className={styles.toggleThumb} />
+                  </button>
                 </div>
               </div>
             )
