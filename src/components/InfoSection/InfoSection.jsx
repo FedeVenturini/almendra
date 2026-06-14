@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './InfoSection.module.css'
 
 const MODALS = {
@@ -114,6 +114,15 @@ const CARDS = [
 
 export default function InfoSection() {
   const [open, setOpen] = useState(null)
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [open])
 
   const modal = open ? MODALS[open] : null
 

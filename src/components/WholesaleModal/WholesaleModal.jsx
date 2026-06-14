@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { usePricing } from '../../context/PricingContext'
 import styles from './WholesaleModal.module.css'
 
@@ -22,6 +22,11 @@ export default function WholesaleModal({ onClose }) {
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
   const [showPwd, setShowPwd] = useState(false)
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = '' }
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
