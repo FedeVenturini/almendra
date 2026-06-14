@@ -19,6 +19,8 @@ export const products = [
   // ── ALFAJORES ──────────────────────────────────────────────────
   {
     id: 1,
+    erpId: '00098',
+    erpName: 'ALFAJOR DE CHOCOLATE BCO/NGRO',
     name: "Alfajor de Chocolate",
     slug: "alfajor-chocolate",
     category: "alfajores",
@@ -31,6 +33,8 @@ export const products = [
   },
   {
     id: 2,
+    erpId: '00099',
+    erpName: 'ALFAJOR DE MAICENA',
     name: "Alfajor de Maicena",
     slug: "alfajor-maicena",
     category: "alfajores",
@@ -38,9 +42,11 @@ export const products = [
     images: ["/images/products/alfajor-maicena.jpg"],
   },
 
-  // ── COOKIES Y BOMBONES ─────────────────────────────────────────
+  // ── GALLETITAS Y COOKIES ───────────────────────────────────────
   {
     id: 3,
+    erpId: '00415',
+    erpName: 'COOKIES NY CON CHIPS x4u',
     name: "Cookies NY con Chips",
     slug: "cookies-ny",
     category: "galletitas",
@@ -49,7 +55,9 @@ export const products = [
   },
   {
     id: 4,
-    name: "Cookies de Avena, Miel y Mix de Frutos Secos",
+    erpId: '00430',
+    erpName: 'COOKIES AVENA, MIEL Y MIX FRUTOS SECOS x4u',
+    name: "Cookies de Avena, Miel y Frutos Secos",
     slug: "cookies-avena-miel",
     category: "galletitas",
     description: "Cookies con avena entera sin gluten, miel natural y mix de frutos secos. Más livianas que las clásicas, con un sabor cálido y reconfortante. x4 unidades.",
@@ -60,6 +68,8 @@ export const products = [
   },
   {
     id: 5,
+    erpId: '00212',
+    erpName: 'BOMBON DE AVENA SIN GLUTEN x6u',
     name: "Bombón de Avena Sin Gluten",
     slug: "bombon-de-avena",
     category: "galletitas",
@@ -68,6 +78,8 @@ export const products = [
   },
   {
     id: 6,
+    erpId: '00332',
+    erpName: 'TURRON DE AVENA SIN GLUTEN (PORCION 100gr aprox)',
     name: "Turron de Avena Sin Gluten",
     slug: "turron-de-avena",
     category: "galletitas",
@@ -76,6 +88,8 @@ export const products = [
   },
   {
     id: 7,
+    erpId: '00216',
+    erpName: 'GRANOLA CASERA x200gr SIN LACTEOS',
     name: "Granola Casera Sin Lacteos",
     slug: "granola-casera",
     category: "galletitas",
@@ -84,6 +98,8 @@ export const products = [
   },
   {
     id: 8,
+    erpId: '00417',
+    erpName: 'POLVORONES LIMON/NARANJA x 200gr',
     name: "Polvorones Limón/Naranja",
     slug: "polvorones",
     category: "galletitas",
@@ -94,6 +110,8 @@ export const products = [
   // ── BUDINES ────────────────────────────────────────────────────
   {
     id: 9,
+    erpId: '00092',
+    erpName: 'BUDIN CHIPS x400gr',
     name: "Budin de Chips",
     slug: "budin-chips",
     category: "budines",
@@ -102,6 +120,8 @@ export const products = [
   },
   {
     id: 10,
+    erpId: '00093',
+    erpName: 'BUDIN CITRICO x400gr (sin lacteos)',
     name: "Budin Cítrico Sin Lacteos",
     slug: "budin-citrico",
     category: "budines",
@@ -110,6 +130,8 @@ export const products = [
   },
   {
     id: 11,
+    erpId: '00578',
+    erpName: 'BUDIN COCO x400gr (sin lacteos)',
     name: "Budin de Coco Sin Lacteos",
     slug: "budin-coco",
     category: "budines",
@@ -120,6 +142,8 @@ export const products = [
   // ── POSTRES ────────────────────────────────────────────────────
   {
     id: 12,
+    erpId: '00408',
+    erpName: 'BROWNIE TORTITA INDIVIDUAL',
     name: "Brownie Tortita Individual",
     slug: "brownie-tortita",
     category: "postres",
@@ -128,6 +152,8 @@ export const products = [
   },
   {
     id: 13,
+    erpId: '00445',
+    erpName: 'BROWNIE PORCION INDIVIDUAL',
     name: "Brownie Porción Individual",
     slug: "brownie-porcion",
     category: "postres",
@@ -136,6 +162,8 @@ export const products = [
   },
   {
     id: 14,
+    erpId: '00442',
+    erpName: 'LEMON PIE INDIVIDUAL SIN LACTEOS',
     name: "Lemon Pie Individual Sin Lacteos",
     slug: "lemon-pie",
     category: "postres",
@@ -144,6 +172,8 @@ export const products = [
   },
   {
     id: 15,
+    erpId: '00133',
+    erpName: 'TARTITA DE COCO Y DDL INDIVIDUAL',
     name: "Tartita de Coco y Dulce de Leche Individual",
     slug: "tartita-coco-ddl",
     category: "postres",
@@ -152,6 +182,8 @@ export const products = [
   },
   {
     id: 16,
+    erpId: '00123',
+    erpName: 'PASTAFROLITA INDIVIDUAL',
     name: "Pastafrolita Individual",
     slug: "pastafrolita",
     category: "postres",
@@ -160,6 +192,8 @@ export const products = [
   },
   {
     id: 17,
+    erpId: '00786',
+    erpName: 'POSTRE OREO INDIVIDUAL',
     name: "Postre Oreo Individual",
     slug: "postre-oreo",
     category: "postres",
@@ -168,6 +202,8 @@ export const products = [
   },
   {
     id: 18,
+    erpId: '00787',
+    erpName: 'POSTRE CHOCOLINA INDIVIDUAL',
     name: "Postre Chocolina Individual",
     slug: "postre-chocolina",
     category: "postres",
@@ -176,6 +212,8 @@ export const products = [
   },
   {
     id: 19,
+    erpId: '00791',
+    erpName: 'POSTRE CHEESECAKE INDIVIDUAL',
     name: "Postre Cheesecake Individual",
     slug: "postre-cheesecake",
     category: "postres",
@@ -184,6 +222,8 @@ export const products = [
   },
   {
     id: 20,
+    erpId: '00804',
+    erpName: 'MEDIALUNAS x2u',
     name: "Medialunas",
     slug: "medialunas",
     category: "postres",
@@ -191,9 +231,11 @@ export const products = [
     images: ["/images/placeholder.jpg"],
   },
 
-  // ── GALLETITAS ─────────────────────────────────────────────────
+  // ── GALLETITAS (dulces clásicas) ───────────────────────────────
   {
     id: 21,
+    erpId: '00124',
+    erpName: 'PEPAS x200gr',
     name: "Pepas",
     slug: "pepas",
     category: "galletitas",
@@ -204,6 +246,8 @@ export const products = [
   // ── PANES ──────────────────────────────────────────────────────
   {
     id: 22,
+    erpId: '00119',
+    erpName: 'PAN DE MOLDE (sin lacteos)',
     name: "Pan de Molde Sin Lacteos",
     slug: "pan-de-molde",
     category: "panes",
@@ -215,6 +259,8 @@ export const products = [
   },
   {
     id: 23,
+    erpId: '00120',
+    erpName: 'PAN DE MOLDE INTEGRAL 900gr/1kg (sin lacteos)',
     name: "Pan de Molde Integral Sin Lacteos",
     slug: "pan-de-molde-integral",
     category: "panes",
@@ -223,6 +269,8 @@ export const products = [
   },
   {
     id: 24,
+    erpId: '00117',
+    erpName: 'PAN BOLLITO x4u (sin lacteos)',
     name: "Pan Bollito Sin Lacteos",
     slug: "pan-bollito",
     category: "panes",
@@ -231,6 +279,8 @@ export const products = [
   },
   {
     id: 25,
+    erpId: '00231',
+    erpName: 'RAPIDITAS x6u (sin lacteos)',
     name: "Rapiditas Sin Lacteos",
     slug: "rapiditas",
     category: "panes",
@@ -239,6 +289,8 @@ export const products = [
   },
   {
     id: 26,
+    erpId: '00671',
+    erpName: 'RAPIDITAS INTEGRAL x6u (sin lacteos)',
     name: "Rapiditas Integrales Sin Lacteos",
     slug: "rapiditas-integrales",
     category: "panes",
@@ -247,6 +299,8 @@ export const products = [
   },
   {
     id: 27,
+    erpId: '00254',
+    erpName: 'PAN DE HAMBURGESA x2u (sin lacteos)',
     name: "Pan de Hamburguesa Sin Lacteos",
     slug: "pan-hamburguesa",
     category: "panes",
@@ -255,6 +309,8 @@ export const products = [
   },
   {
     id: 28,
+    erpId: '00287',
+    erpName: 'PAN DE PANCHO/PEBETE x4u (sin lacteos)',
     name: "Pan de Pancho/Pebete Sin Lacteos",
     slug: "pan-pancho-pebete",
     category: "panes",
@@ -263,6 +319,8 @@ export const products = [
   },
   {
     id: 29,
+    erpId: '00268',
+    erpName: 'PIONONO (SIN LACTEOS)',
     name: "Pionono Sin Lacteos",
     slug: "pionono",
     category: "panes",
@@ -271,6 +329,8 @@ export const products = [
   },
   {
     id: 30,
+    erpId: '00709',
+    erpName: 'SANDWICH INTEGRAL x1',
     name: "Sandwich Integral",
     slug: "sandwich-integral",
     category: "panes",
@@ -279,6 +339,8 @@ export const products = [
   },
   {
     id: 31,
+    erpId: '00710',
+    erpName: 'SANDWICH DE MIGA JYQ x1',
     name: "Sandwich de Miga Jamón y Queso",
     slug: "sandwich-miga-jyq",
     category: "panes",
@@ -289,6 +351,8 @@ export const products = [
   // ── CHIPAS ─────────────────────────────────────────────────────
   {
     id: 32,
+    erpId: '00389',
+    erpName: 'CHIPA EXTRA QUESO x250gr - CRUDO FREEZADO',
     name: "Chipa Extra Queso — Crudo Freezado",
     slug: "chipa-extra-queso",
     category: "chipas",
@@ -300,6 +364,8 @@ export const products = [
   },
   {
     id: 33,
+    erpId: '00692',
+    erpName: 'CHIPA ROQUEFORT x250gr - CRUDO FREEZADO',
     name: "Chipa Roquefort — Crudo Freezado",
     slug: "chipa-roquefort",
     category: "chipas",
@@ -308,6 +374,8 @@ export const products = [
   },
   {
     id: 34,
+    erpId: '00754',
+    erpName: 'CHIPA COCIDO x100gr',
     name: "Chipa Cocido",
     slug: "chipa-cocido",
     category: "chipas",
@@ -318,6 +386,8 @@ export const products = [
   // ── PASTAS ─────────────────────────────────────────────────────
   {
     id: 35,
+    erpId: '00096',
+    erpName: 'CANELONES DE VERDURAS X3 (sin lacteos)',
     name: "Canelones de Verduras Sin Lacteos",
     slug: "canelones-verduras",
     category: "pastas",
@@ -326,6 +396,8 @@ export const products = [
   },
   {
     id: 36,
+    erpId: '00107',
+    erpName: 'TALLARINES x500gr (sin lacteos)',
     name: "Tallarines Sin Lacteos",
     slug: "tallarines",
     category: "pastas",
@@ -334,6 +406,8 @@ export const products = [
   },
   {
     id: 37,
+    erpId: '00168',
+    erpName: 'RAVIOLES HONGOS Y RICOTA x16u - PORCIONES:2 - 550gr aprox',
     name: "Ravioles de Hongos y Ricota",
     slug: "ravioles-hongos-ricota",
     category: "pastas",
@@ -342,6 +416,8 @@ export const products = [
   },
   {
     id: 38,
+    erpId: '00169',
+    erpName: 'RAVIOLES ESPINACA (SIN LACTEOS) x16u - PORCIONES:2 - 550gr aprox',
     name: "Ravioles de Espinaca Sin Lacteos",
     slug: "ravioles-espinaca",
     category: "pastas",
@@ -350,6 +426,8 @@ export const products = [
   },
   {
     id: 39,
+    erpId: '00170',
+    erpName: 'RAVIOLES JAMON Y MUZZARELLA (16u) - PORCIONES:2 - 550gr',
     name: "Ravioles de Jamón y Muzzarella",
     slug: "ravioles-jamon-muzzarella",
     category: "pastas",
@@ -358,6 +436,8 @@ export const products = [
   },
   {
     id: 40,
+    erpId: '00172',
+    erpName: 'RAVIOLES ESPINACA Y RICOTA x16u - PORCIONES:2 - 550gr aprox',
     name: "Ravioles de Espinaca y Ricota",
     slug: "ravioles-espinaca-ricota",
     category: "pastas",
@@ -368,6 +448,8 @@ export const products = [
   // ── PIZZAS ─────────────────────────────────────────────────────
   {
     id: 41,
+    erpId: '00185',
+    erpName: 'PREPIZZETAS x 2U (sin lacteos)',
     name: "Prepizzetas Sin Lacteos",
     slug: "prepizzetas",
     category: "pizzas",
@@ -376,6 +458,8 @@ export const products = [
   },
   {
     id: 42,
+    erpId: '00199',
+    erpName: 'PIZZA CASERA MUZARELLA',
     name: "Pizza Casera Muzzarella",
     slug: "pizza-muzzarella",
     category: "pizzas",
@@ -384,6 +468,8 @@ export const products = [
   },
   {
     id: 43,
+    erpId: '00202',
+    erpName: 'PIZZA CASERA NAPOLITANA',
     name: "Pizza Casera Napolitana",
     slug: "pizza-napolitana",
     category: "pizzas",
@@ -392,6 +478,8 @@ export const products = [
   },
   {
     id: 44,
+    erpId: '00303',
+    erpName: 'PIZZA CASERA MUZARELLA y  ROQUEFORT',
     name: "Pizza Casera Muzzarella y Roquefort",
     slug: "pizza-muzzarella-roquefort",
     category: "pizzas",
@@ -400,6 +488,8 @@ export const products = [
   },
   {
     id: 45,
+    erpId: '00304',
+    erpName: 'PIZZA CASERA MUZARELLA Y JAMON',
     name: "Pizza Casera Muzzarella y Jamón",
     slug: "pizza-muzzarella-jamon",
     category: "pizzas",
@@ -410,6 +500,8 @@ export const products = [
   // ── TARTAS ─────────────────────────────────────────────────────
   {
     id: 46,
+    erpId: '00312',
+    erpName: 'TARTA CASERA ESPINACA Y QUESO 250gr',
     name: "Tarta Casera Espinaca y Queso",
     slug: "tarta-espinaca-queso",
     category: "tartas",
@@ -418,6 +510,8 @@ export const products = [
   },
   {
     id: 47,
+    erpId: '00313',
+    erpName: 'TARTA CASERA MIX DE VERDURAS x240gr SIN LACTEOS',
     name: "Tarta Casera Mix de Verduras Sin Lacteos",
     slug: "tarta-mix-verduras",
     category: "tartas",
@@ -426,6 +520,8 @@ export const products = [
   },
   {
     id: 48,
+    erpId: '00314',
+    erpName: 'TARTA CASERA CHOCLO, CEBOLLA Y QUESO 250gr',
     name: "Tarta Casera Choclo, Cebolla y Queso",
     slug: "tarta-choclo-cebolla-queso",
     category: "tartas",
@@ -434,6 +530,8 @@ export const products = [
   },
   {
     id: 49,
+    erpId: '00406',
+    erpName: 'TARTA CASERA JAMON Y MUZARELLA 250gr',
     name: "Tarta Casera Jamón y Muzzarella",
     slug: "tarta-jamon-muzzarella",
     category: "tartas",
@@ -442,6 +540,8 @@ export const products = [
   },
   {
     id: 50,
+    erpId: '00128',
+    erpName: 'TAPAS DE EMPANADAS x12u (sin lacteos)',
     name: "Tapas de Empanadas Sin Lacteos",
     slug: "tapas-empanadas",
     category: "tartas",
@@ -450,6 +550,8 @@ export const products = [
   },
   {
     id: 51,
+    erpId: '00129',
+    erpName: 'TAPAS DE TARTA x2u (sin lacteos)',
     name: "Tapas de Tarta Sin Lacteos",
     slug: "tapas-de-tarta",
     category: "tartas",
@@ -458,6 +560,8 @@ export const products = [
   },
   {
     id: 52,
+    erpId: '00130',
+    erpName: 'TAPAS DE TARTA INTEGRAL x2u (sin lacteos)',
     name: "Tapas de Tarta Integral Sin Lacteos",
     slug: "tapas-tarta-integral",
     category: "tartas",
@@ -468,6 +572,8 @@ export const products = [
   // ── MARINERAS ──────────────────────────────────────────────────
   {
     id: 53,
+    erpId: '00105',
+    erpName: 'MARINERAS x200gr (sin lacteos)',
     name: "Marineras Sin Lacteos",
     slug: "marineras",
     category: "marineras",
@@ -476,6 +582,8 @@ export const products = [
   },
   {
     id: 54,
+    erpId: '00106',
+    erpName: 'MARINERAS CON SEMILLAS x200gr (sin lacteos)',
     name: "Marineras con Semillas Sin Lacteos",
     slug: "marineras-semillas",
     category: "marineras",
@@ -486,6 +594,8 @@ export const products = [
   // ── TALITAS ────────────────────────────────────────────────────
   {
     id: 55,
+    erpId: '00126',
+    erpName: 'TALITAS x200gr',
     name: "Talitas",
     slug: "talitas",
     category: "talitas",
@@ -494,6 +604,8 @@ export const products = [
   },
   {
     id: 56,
+    erpId: '00127',
+    erpName: 'TALITAS INTEGRALES x200gr',
     name: "Talitas Integrales",
     slug: "talitas-integrales",
     category: "talitas",

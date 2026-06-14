@@ -31,13 +31,15 @@ function getRangeForPreset(preset) {
 function downloadPriceTemplate(catalogWithNames) {
   const rows = catalogWithNames.map(p => ({
     id: p.id,
-    Producto: p.name,
+    'Nombre Página': p.name,
+    'ID ERP': p.erpId,
+    'Nombre ERP': p.erpName,
     'Precio Minorista': p.price,
     'Precio Mayorista': p.wholesale_price,
     Stock: p.stock,
   }))
   const ws = XLSX.utils.json_to_sheet(rows)
-  ws['!cols'] = [{ wch: 24 }, { wch: 30 }, { wch: 18 }, { wch: 18 }, { wch: 10 }]
+  ws['!cols'] = [{ wch: 8 }, { wch: 36 }, { wch: 10 }, { wch: 50 }, { wch: 18 }, { wch: 18 }, { wch: 10 }]
   const wb = XLSX.utils.book_new()
   XLSX.utils.book_append_sheet(wb, ws, 'Precios')
   XLSX.writeFile(wb, 'almendra-precios.xlsx')
