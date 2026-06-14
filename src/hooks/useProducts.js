@@ -20,7 +20,8 @@ export function useProducts() {
       const wholesalePrice = row?.wholesale_price ?? 0
       const price = mode === 'wholesale' ? wholesalePrice : retailPrice
       const active = row?.active ?? true
-      return { ...p, price, stock: row?.stock ?? 0, active }
+      const description = row?.description || p.description
+      return { ...p, price, stock: row?.stock ?? 0, active, description }
     })
     .filter(p => p.active)
 

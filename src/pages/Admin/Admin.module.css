@@ -342,7 +342,7 @@
 
 .productTableHeader {
   display: grid;
-  grid-template-columns: 1fr 110px 110px 100px 80px;
+  grid-template-columns: 1fr 110px 110px 100px 80px 60px;
   padding: 8px 14px;
   font-size: 11px;
   font-weight: 600;
@@ -353,7 +353,7 @@
 
 .productRow {
   display: grid;
-  grid-template-columns: 1fr 110px 110px 100px 80px;
+  grid-template-columns: 1fr 110px 110px 100px 80px 60px;
   align-items: center;
   background: #F3DBC3;
   border: 1px solid #96775C;
@@ -591,3 +591,133 @@
   padding: 10px 14px;
   margin-bottom: 14px;
 }
+
+/* Botón lápiz */
+.pencilBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: #E1C8AB;
+  border: 1px solid #96775C;
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.pencilBtn:hover {
+  background: #96775C;
+  color: #fff;
+}
+
+/* Modal edición card */
+.cardModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.cardModal {
+  background: #F3DBC3;
+  border: 1px solid #96775C;
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cardModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.cardModalTitle {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.cardModalClose {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #E1C8AB;
+  border: 1px solid #96775C;
+  font-size: 13px;
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.cardModalClose:hover { background: #d4b896; }
+
+.cardModalLabel {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+}
+
+.cardModalTextarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid #96775C;
+  background: #fff;
+  font-size: 14px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
+}
+
+.cardModalTextarea:focus { border-color: var(--color-primary); }
+
+.cardModalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.cardModalCancel {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-light);
+  background: transparent;
+  border: 1px solid #96775C;
+  border-radius: 100px;
+  padding: 9px 20px;
+  transition: background 0.15s;
+}
+
+.cardModalCancel:hover { background: #E1C8AB; }
+
+.cardModalSave {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-primary);
+  border-radius: 100px;
+  padding: 9px 24px;
+  transition: background 0.2s;
+}
+
+.cardModalSave:hover { background: #a85556; }
+.cardModalSave:disabled { opacity: 0.5; cursor: not-allowed; }

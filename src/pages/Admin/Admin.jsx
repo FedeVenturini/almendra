@@ -138,6 +138,15 @@ function exportToExcel(orders, dateLabel) {
   XLSX.writeFile(wb, `almendra-pedidos-${dateLabel}.xlsx`)
 }
 
+function PencilIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+    </svg>
+  )
+}
+
 function EyeIcon({ open }) {
   return open ? (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -174,6 +183,8 @@ export default function Admin() {
   const [saving, setSaving] = useState({})
   const [importing, setImporting] = useState(false)
   const [importResult, setImportResult] = useState(null)
+  const [editingCard, setEditingCard] = useState(null) // { id, description }
+  const [savingCard, setSavingCard] = useState(false)
 
   const login = e => {
     e.preventDefault()
@@ -212,6 +223,15 @@ export default function Admin() {
   const toggleActive = async (id, current) => {
     await updateProductCatalog(id, { active: !current })
     setCatalog(prev => prev.map(r => r.id === id ? { ...r, active: !current } : r))
+  }
+
+  const saveCardDescription = async () => {
+    if (!editingCard) return
+    setSavingCard(true)
+    await updateProductCatalog(editingCard.id, { description: editingCard.description })
+    setCatalog(prev => prev.map(r => r.id === editingCard.id ? { ...r, description: editingCard.description } : r))
+    setSavingCard(false)
+    setEditingCard(null)
   }
 
   const startEdit = (id, field, value) => {
@@ -407,6 +427,7 @@ export default function Admin() {
             <span className={styles.colCenter}>Mayorista</span>
             <span className={styles.colCenter}>Stock</span>
             <span className={styles.colCenter}>Visible</span>
+            <span className={styles.colCenter}>Editar</span>
           </div>
           {catalogLoading && <p className={styles.empty}>Cargando...</p>}
           {catalogWithNames.map(p => {
@@ -416,6 +437,7 @@ export default function Admin() {
             return (
               <div key={p.id} className={`${styles.productRow} ${!p.active ? styles.productRowInactive : ''}`}>
                 <span className={styles.productName}>{p.name}</span>
+
 
                 <div className={styles.colCenter}>
                   {priceKey in editing ? (
@@ -477,10 +499,45 @@ export default function Admin() {
                     <span className={styles.toggleThumb} />
                   </button>
                 </div>
+
+                <div className={styles.colCenter}>
+                  <button
+                    className={styles.pencilBtn}
+                    onClick={() => setEditingCard({ id: p.id, name: p.name, description: catalog.find(r => r.id === p.id)?.description || p.description })}
+                    title="Editar descripción"
+                  >
+                    <PencilIcon />
+                  </button>
+                </div>
               </div>
             )
           })}
         </div>
+        </div>
+      )}
+
+      {editingCard && (
+        <div className={styles.cardModalOverlay} onClick={() => setEditingCard(null)}>
+          <div className={styles.cardModal} onClick={e => e.stopPropagation()}>
+            <div className={styles.cardModalHeader}>
+              <h3 className={styles.cardModalTitle}>{editingCard.name}</h3>
+              <button className={styles.cardModalClose} onClick={() => setEditingCard(null)}>✕</button>
+            </div>
+            <label className={styles.cardModalLabel}>Descripción</label>
+            <textarea
+              className={styles.cardModalTextarea}
+              value={editingCard.description}
+              onChange={e => setEditingCard(prev => ({ ...prev, description: e.target.value }))}
+              rows={5}
+              autoFocus
+            />
+            <div className={styles.cardModalActions}>
+              <button className={styles.cardModalCancel} onClick={() => setEditingCard(null)}>Cancelar</button>
+              <button className={styles.cardModalSave} onClick={saveCardDescription} disabled={savingCard}>
+                {savingCard ? 'Guardando...' : 'Guardar'}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
