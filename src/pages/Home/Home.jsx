@@ -30,7 +30,7 @@ export default function Home() {
   const { products } = useProducts()
   const { mode, exitWholesale } = usePricing()
 
-  const carouselImages = products.map(p => p.images[0]).filter(Boolean)
+  const carouselImages = products.map(p => p.images[0]).filter(img => img && !img.includes('card-revelando'))
 
   useEffect(() => {
     if (carouselImages.length <= 1) return
