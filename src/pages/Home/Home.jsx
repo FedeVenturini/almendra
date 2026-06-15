@@ -118,58 +118,62 @@ export default function Home() {
         <section id="productos" className={styles.productsSection}>
           <h2 className={styles.sectionTitle}>Nuestros sabores</h2>
 
-          <div className={styles.searchWrap}>
-            <span className={styles.searchIcon}>🔍</span>
-            <input
-              className={styles.searchInput}
-              type="text"
-              placeholder="Buscar producto..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-            />
-            {search && (
-              <button className={styles.searchClear} onClick={() => setSearch('')}>✕</button>
-            )}
-          </div>
-
-          {/* Nivel 1: Todos / Dulce / Salado */}
-          <div className={styles.filters}>
-            {GROUPS.map(g => (
-              <button
-                key={g.id}
-                className={`${styles.filterBtn} ${activeGroup === g.id ? styles.filterActive : ''}`}
-                onClick={() => handleGroupClick(g.id)}
-              >{g.label}</button>
-            ))}
-          </div>
-
-          {/* Nivel 2: Subcategorías */}
-          {subCategories.length > 0 && (
-            <div className={styles.subFilters}>
-              <button
-                className={`${styles.subFilterBtn} ${activeCategory === 'todos' ? styles.subFilterActive : ''}`}
-                onClick={() => setActiveCategory('todos')}
-              >Todas</button>
-              {subCategories.map(cat => (
+          {/* Nivel 1: Todos / Dulce / Salado + buscador inline */}
+          <div className={styles.filtersRow}>
+            <div className={styles.filters}>
+              {GROUPS.map(g => (
                 <button
-                  key={cat.id}
-                  className={`${styles.subFilterBtn} ${activeCategory === cat.id ? styles.subFilterActive : ''}`}
-                  onClick={() => setActiveCategory(cat.id)}
-                >{cat.label}</button>
+                  key={g.id}
+                  className={`${styles.filterBtn} ${activeGroup === g.id ? styles.filterActive : ''}`}
+                  onClick={() => handleGroupClick(g.id)}
+                >{g.label}</button>
               ))}
             </div>
-          )}
-
-          {/* Nivel 3: Almendra / Otras marcas */}
-          <div className={styles.brandFilters}>
-            {BRANDS.map(b => (
-              <button
-                key={b.id}
-                className={`${styles.brandFilterBtn} ${activeBrand === b.id ? styles.brandFilterActive : ''}`}
-                onClick={() => setActiveBrand(b.id)}
-              >{b.label}</button>
-            ))}
+            <div className={styles.searchWrap}>
+              <span className={styles.searchIcon}>🔍</span>
+              <input
+                className={styles.searchInput}
+                type="text"
+                placeholder="Buscar..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+              />
+              {search && (
+                <button className={styles.searchClear} onClick={() => setSearch('')}>✕</button>
+              )}
+            </div>
           </div>
+
+          {/* Nivel 2 y 3: solo cuando hay grupo seleccionado */}
+          {activeGroup !== 'todos' && (
+            <>
+              {subCategories.length > 0 && (
+                <div className={styles.subFilters}>
+                  <button
+                    className={`${styles.subFilterBtn} ${activeCategory === 'todos' ? styles.subFilterActive : ''}`}
+                    onClick={() => setActiveCategory('todos')}
+                  >Todas</button>
+                  {subCategories.map(cat => (
+                    <button
+                      key={cat.id}
+                      className={`${styles.subFilterBtn} ${activeCategory === cat.id ? styles.subFilterActive : ''}`}
+                      onClick={() => setActiveCategory(cat.id)}
+                    >{cat.label}</button>
+                  ))}
+                </div>
+              )}
+
+              <div className={styles.brandFilters}>
+                {BRANDS.map(b => (
+                  <button
+                    key={b.id}
+                    className={`${styles.brandFilterBtn} ${activeBrand === b.id ? styles.brandFilterActive : ''}`}
+                    onClick={() => setActiveBrand(b.id)}
+                  >{b.label}</button>
+                ))}
+              </div>
+            </>
+          )}
 
           <div className={styles.grid}>
             {filtered.map(product => (
