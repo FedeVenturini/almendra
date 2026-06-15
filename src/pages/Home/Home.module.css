@@ -278,6 +278,35 @@
   color: #fff !important;
 }
 
+.brandFilters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding-left: 4px;
+}
+
+.brandFilterBtn {
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-light);
+  transition: all 0.2s;
+}
+
+.brandFilterBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.brandFilterActive {
+  background: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: #fff !important;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

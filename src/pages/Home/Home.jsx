@@ -7,14 +7,22 @@ import WholesaleModal from '../../components/WholesaleModal/WholesaleModal'
 import InfoSection from '../../components/InfoSection/InfoSection'
 import styles from './Home.module.css'
 
-const GROUPS = {
-  dulce:  { label: '🍫 Dulce',  cats: ['alfajores', 'galletitas', 'budines', 'postres'] },
-  salado: { label: '🧀 Salado', cats: ['panes', 'chipas', 'pastas', 'pizzas', 'tartas', 'marineras', 'talitas'] },
-}
+const GROUPS = [
+  { id: 'todos',  label: 'Todos' },
+  { id: 'dulce',  label: '🍫 Dulce' },
+  { id: 'salado', label: '🧀 Salado' },
+]
+
+const BRANDS = [
+  { id: 'todos',    label: 'Todas las marcas' },
+  { id: 'almendra', label: '🌾 Almendra' },
+  { id: 'otras',    label: '🏪 Otras marcas' },
+]
 
 export default function Home() {
   const [activeGroup, setActiveGroup] = useState('todos')
   const [activeCategory, setActiveCategory] = useState('todos')
+  const [activeBrand, setActiveBrand] = useState('todos')
   const [search, setSearch] = useState('')
   const [showWholesale, setShowWholesale] = useState(false)
   const [carouselIndex, setCarouselIndex] = useState(0)
@@ -41,16 +49,19 @@ export default function Home() {
     setActiveCategory('todos')
   }
 
-  const subCategories = activeGroup !== 'todos'
-    ? categories.filter(c => GROUPS[activeGroup].cats.includes(c.id))
-    : []
+  // Subcategories available for current group
+  const groupProducts = activeGroup === 'todos'
+    ? products
+    : products.filter(p => p.group === activeGroup)
+
+  const subCategoryIds = [...new Set(groupProducts.map(p => p.category))]
+  const subCategories = categories.filter(c => c.id !== 'todos' && subCategoryIds.includes(c.id))
 
   const filtered = products.filter(p => {
     if (search.trim()) return p.name.toLowerCase().includes(search.toLowerCase())
-    if (activeGroup !== 'todos' && activeCategory === 'todos')
-      return GROUPS[activeGroup].cats.includes(p.category)
-    if (activeCategory !== 'todos')
-      return p.category === activeCategory
+    if (activeGroup !== 'todos' && p.group !== activeGroup) return false
+    if (activeCategory !== 'todos' && p.category !== activeCategory) return false
+    if (activeBrand !== 'todos' && p.brand !== activeBrand) return false
     return true
   })
 
@@ -123,26 +134,22 @@ export default function Home() {
 
           {/* Nivel 1: Todos / Dulce / Salado */}
           <div className={styles.filters}>
-            <button
-              className={`${styles.filterBtn} ${activeGroup === 'todos' ? styles.filterActive : ''}`}
-              onClick={() => handleGroupClick('todos')}
-            >Todos</button>
-            {Object.entries(GROUPS).map(([key, g]) => (
+            {GROUPS.map(g => (
               <button
-                key={key}
-                className={`${styles.filterBtn} ${activeGroup === key ? styles.filterActive : ''}`}
-                onClick={() => handleGroupClick(key)}
+                key={g.id}
+                className={`${styles.filterBtn} ${activeGroup === g.id ? styles.filterActive : ''}`}
+                onClick={() => handleGroupClick(g.id)}
               >{g.label}</button>
             ))}
           </div>
 
-          {/* Nivel 2: subcategorías */}
+          {/* Nivel 2: Subcategorías */}
           {subCategories.length > 0 && (
             <div className={styles.subFilters}>
               <button
                 className={`${styles.subFilterBtn} ${activeCategory === 'todos' ? styles.subFilterActive : ''}`}
                 onClick={() => setActiveCategory('todos')}
-              >Todos</button>
+              >Todas</button>
               {subCategories.map(cat => (
                 <button
                   key={cat.id}
@@ -152,6 +159,17 @@ export default function Home() {
               ))}
             </div>
           )}
+
+          {/* Nivel 3: Almendra / Otras marcas */}
+          <div className={styles.brandFilters}>
+            {BRANDS.map(b => (
+              <button
+                key={b.id}
+                className={`${styles.brandFilterBtn} ${activeBrand === b.id ? styles.brandFilterActive : ''}`}
+                onClick={() => setActiveBrand(b.id)}
+              >{b.label}</button>
+            ))}
+          </div>
 
           <div className={styles.grid}>
             {filtered.map(product => (

@@ -24,6 +24,7 @@ export function useProducts() {
       return { ...p, price, stock: row?.stock ?? 0, active, description }
     })
     .filter(p => p.active)
+    .filter(p => mode === 'wholesale' ? p.wholesaleVisible !== false : true)
 
   return { products, loading: catalog === null }
 }
