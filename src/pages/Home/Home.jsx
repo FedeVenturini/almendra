@@ -15,6 +15,7 @@ const GROUPS = {
 export default function Home() {
   const [activeGroup, setActiveGroup] = useState('todos')
   const [activeCategory, setActiveCategory] = useState('todos')
+  const [search, setSearch] = useState('')
   const [showWholesale, setShowWholesale] = useState(false)
   const [carouselIndex, setCarouselIndex] = useState(0)
   const [carouselVisible, setCarouselVisible] = useState(true)
@@ -45,6 +46,7 @@ export default function Home() {
     : []
 
   const filtered = products.filter(p => {
+    if (search.trim()) return p.name.toLowerCase().includes(search.toLowerCase())
     if (activeGroup !== 'todos' && activeCategory === 'todos')
       return GROUPS[activeGroup].cats.includes(p.category)
     if (activeCategory !== 'todos')
@@ -104,6 +106,20 @@ export default function Home() {
 
         <section id="productos" className={styles.productsSection}>
           <h2 className={styles.sectionTitle}>Nuestros sabores</h2>
+
+          <div className={styles.searchWrap}>
+            <span className={styles.searchIcon}>🔍</span>
+            <input
+              className={styles.searchInput}
+              type="text"
+              placeholder="Buscar producto..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
+            {search && (
+              <button className={styles.searchClear} onClick={() => setSearch('')}>✕</button>
+            )}
+          </div>
 
           {/* Nivel 1: Todos / Dulce / Salado */}
           <div className={styles.filters}>
