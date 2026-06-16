@@ -14,8 +14,7 @@ export async function fetchProductCatalog() {
 export async function updateProductCatalog(id, fields) {
   const { error } = await supabase
     .from('product_catalog')
-    .update(fields)
-    .eq('id', id)
+    .upsert({ id, ...fields }, { onConflict: 'id' })
   if (error) throw error
 }
 
