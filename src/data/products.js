@@ -97,7 +97,7 @@ export const products = [
     brand: 'almendra',
     wholesaleVisible: true,
     description: 'Clásico alfajor de maicena con tapas tiernas y suaves, rellenas de dulce de leche casero y rebozadas en coco rallado. Una receta que no falla.',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/alfajor-maicena.jpg'],
   },
   {
     id: 58,
@@ -526,7 +526,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/palmeritas-hojaldre-naquet-x160gr.webp'],
   },
   {
     id: 72,
@@ -539,7 +539,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/hojaldritas-naquet-sin-tacc-x140gr.webp'],
   },
   {
     id: 42,
@@ -617,7 +617,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/obleas-santa-maria-ch-frut-coco-limon-vainilla-1.webp', '/images/products/obleas-santa-maria-ch-frut-coco-limon-vainilla-2.webp', '/images/products/obleas-santa-maria-ch-frut-coco-limon-vainilla-3.webp', '/images/products/obleas-santa-maria-ch-frut-coco-limon-vainilla-4.webp'],
   },
   {
     id: 25,
@@ -929,7 +929,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/fideos-fusili-tirabuzon-dona-rosa-x400gr.webp'],
   },
   {
     id: 89,
@@ -981,7 +981,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/fideos-spaghetti-matarazzo-x500g.webp'],
   },
   {
     id: 93,
@@ -994,7 +994,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/fideos-municiones-dona-rosa-x400g.webp'],
   },
   {
     id: 94,
@@ -1007,7 +1007,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/fideos-dedalitos-dona-rosa-x400g.webp'],
   },
   {
     id: 95,
@@ -1020,7 +1020,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/fideos-penne-rigate-d-rosa-x400g.webp'],
   },
   {
     id: 96,
@@ -1033,7 +1033,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/fideos-tirabuzon-matarazzo-x500g.webp'],
   },
   {
     id: 97,
@@ -1072,7 +1072,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/fideos-penne-rigate-matarazzo.webp'],
   },
   {
     id: 32,
@@ -1163,7 +1163,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/fideos-monitos-al-huevo-x400gr-dona-rosa.webp'],
   },
   {
     id: 3,
@@ -1345,7 +1345,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/fideos-monitos-multiveg-d-rosa-x500g.webp'],
   },
   {
     id: 113,
@@ -1358,7 +1358,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/fideos-caseritos-multivegetales-d-rosa-x450gr.webp'],
   },
   {
     id: 114,
@@ -1657,7 +1657,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/fideos-matarazzo-mix-leg-x500g.webp'],
   },
   {
     id: 137,
@@ -1683,7 +1683,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/nachos-sabor-original-x90gr-ketsal.jpg'],
   },
   {
     id: 139,
@@ -1761,7 +1761,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/maiz-frito-x150g-cumana.webp'],
   },
   {
     id: 144,
@@ -1774,7 +1774,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/almendra-sin-tacc-x-250g-cumana.webp'],
   },
   {
     id: 145,
@@ -1878,7 +1878,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/fideos-fusilli-multivegetal-x400gr-dona-rosa.webp'],
   },
   {
     id: 153,
@@ -1891,7 +1891,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/galletita-maria-x125gr-sch-r.jpg'],
   },
   {
     id: 154,
@@ -1904,7 +1904,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/gallet-leche-condesada-x125gr-praat.webp'],
   },
   {
     id: 155,
@@ -1917,7 +1917,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/galle-vainilla-relle-frambuesa-x85gr-praat.webp'],
   },
   {
     id: 156,
@@ -1930,7 +1930,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/galle-aventura-choco-x85gr-praat.webp'],
   },
   {
     id: 157,
@@ -1943,7 +1943,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/galle-chocolate-relle-lima-x85gr-praat.webp'],
   },
   {
     id: 158,
@@ -1956,7 +1956,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/galle-chocolate-relle-avellana-x85gr-praat.webp'],
   },
   {
     id: 159,
@@ -1969,7 +1969,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/galle-ddl-y-chocolate-x125gr-praat.webp'],
   },
   {
     id: 160,
@@ -1982,7 +1982,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/marineritas-saladas-ban-c-choco-x125g-praat.webp'],
   },
   {
     id: 161,
@@ -1995,7 +1995,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/fideos-cabello-de-angel-x400g-dona-rosa.webp'],
   },
   {
     id: 162,
@@ -2060,7 +2060,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/milanesa-de-pollo-x400g-miska.jpg'],
   },
   {
     id: 167,
@@ -2138,7 +2138,7 @@ export const products = [
     brand: 'almendra',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/conito-dulce-de-leche.jpg'],
   },
   {
     id: 173,
@@ -2151,7 +2151,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/arroz-al-curry-x200gr-mole.jpg'],
   },
   {
     id: 174,
@@ -2164,7 +2164,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/risotto-al-pesto-hongos-x200gr-mole-1.webp', '/images/products/risotto-al-pesto-hongos-x200gr-mole-2.jpg'],
   },
   {
     id: 175,
@@ -2177,7 +2177,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/guiso-de-lentejas-x200gr-mole.webp'],
   },
   {
     id: 176,
@@ -2190,7 +2190,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/caldo-natural-de-verdura-x140gr-mole.jpg'],
   },
   {
     id: 177,
@@ -2242,7 +2242,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/maiz-frito-x100gr-cumana.webp'],
   },
   {
     id: 181,
@@ -2346,7 +2346,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/mix-frutos-secos-doy-pack-x120g-cumana.webp'],
   },
   {
     id: 188,
@@ -2385,7 +2385,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/nachos-sabor-queso-x70gr-ketsal.jpg'],
   },
   {
     id: 191,
@@ -2398,7 +2398,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/nachos-sabor-original-x250gr-ketsal.jpg'],
   },
   {
     id: 192,
@@ -2918,7 +2918,7 @@ export const products = [
     brand: 'almendra',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/alfachips.jpg'],
   },
   {
     id: 228,
@@ -2957,7 +2957,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/ciruela-deshidratada-x250g-fruitlife.webp'],
   },
   {
     id: 231,
@@ -3022,7 +3022,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/empanadas-espinaca-choclo-x3u-cresfood-1.webp', '/images/products/empanadas-espinaca-choclo-x3u-cresfood-2.webp'],
   },
   {
     id: 236,
@@ -3061,7 +3061,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/postre-tiramisu-cresfood.webp'],
   },
   {
     id: 239,
@@ -3204,7 +3204,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/tomates-deshidratados-x120g-fruitlife.webp'],
   },
   {
     id: 247,
@@ -3217,7 +3217,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/durazno-deshidratado-x250g-fruitlife.webp'],
   },
   {
     id: 20,
@@ -3243,7 +3243,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/salsa-mixta-x300g-miska.jpg'],
   },
   {
     id: 249,
@@ -3256,7 +3256,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/salsa-crema-y-champi-x300g-miska.jpg'],
   },
   {
     id: 250,
@@ -3269,7 +3269,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/salsa-crema-y-puerro-x300g-miska.jpg'],
   },
   {
     id: 251,
@@ -3282,7 +3282,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/salsa-filetto-x300g-miska.jpg'],
   },
   {
     id: 252,
@@ -3295,7 +3295,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/empanadas-jyq-x3u-cresfood.webp'],
   },
   {
     id: 253,
@@ -3308,7 +3308,7 @@ export const products = [
     brand: 'otras',
     wholesaleVisible: false,
     description: '',
-    images: ['/images/products/card-revelando.png'],
+    images: ['/images/products/snack-fugazzeta-bbc-ket-x55g-praat-1.webp', '/images/products/snack-fugazzeta-bbc-ket-x55g-praat-2.webp'],
   },
   {
     id: 254,
