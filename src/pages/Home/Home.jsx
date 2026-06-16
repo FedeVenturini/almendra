@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { categories } from '../../data/products'
 import { useProducts } from '../../hooks/useProducts'
 import { usePricing } from '../../context/PricingContext'
@@ -20,10 +21,25 @@ const BRANDS = [
 ]
 
 export default function Home() {
-  const [activeGroup, setActiveGroup] = useState('todos')
-  const [activeCategory, setActiveCategory] = useState('todos')
-  const [activeBrand, setActiveBrand] = useState('todos')
-  const [search, setSearch] = useState('')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const activeGroup    = searchParams.get('grupo') || 'todos'
+  const activeCategory = searchParams.get('cat')   || 'todos'
+  const activeBrand    = searchParams.get('marca')  || 'todos'
+  const search         = searchParams.get('q')      || ''
+
+  const setFilter = (key, value) => {
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev)
+      if (!value || value === 'todos' || value === '') next.delete(key)
+      else next.set(key, value)
+      return next
+    }, { replace: true })
+  }
+
+  const setActiveGroup    = (v) => { setFilter('grupo', v); setFilter('cat', '') }
+  const setActiveCategory = (v) => setFilter('cat', v)
+  const setActiveBrand    = (v) => setFilter('marca', v)
+  const setSearch         = (v) => setFilter('q', v)
   const [showWholesale, setShowWholesale] = useState(false)
   const [carouselIndex, setCarouselIndex] = useState(0)
   const [carouselVisible, setCarouselVisible] = useState(true)
@@ -43,11 +59,6 @@ export default function Home() {
     }, 5000)
     return () => clearInterval(interval)
   }, [carouselImages.length])
-
-  const handleGroupClick = (group) => {
-    setActiveGroup(group)
-    setActiveCategory('todos')
-  }
 
   // Subcategories available for current group
   const groupProducts = activeGroup === 'todos'
@@ -125,7 +136,7 @@ export default function Home() {
                 <button
                   key={g.id}
                   className={`${styles.filterBtn} ${activeGroup === g.id ? styles.filterActive : ''}`}
-                  onClick={() => handleGroupClick(g.id)}
+                  onClick={() => setActiveGroup(g.id)}
                 >{g.label}</button>
               ))}
             </div>
