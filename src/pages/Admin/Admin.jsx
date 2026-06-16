@@ -220,16 +220,22 @@ export default function Admin() {
     return { ...p, price: row.price, wholesale_price: row.wholesale_price, stock: row.stock, active: row.active ?? true }
   })
 
+  const upsertLocal = (prev, id, fields) => {
+    const exists = prev.some(r => r.id === id)
+    if (exists) return prev.map(r => r.id === id ? { ...r, ...fields } : r)
+    return [...prev, { id, ...fields }]
+  }
+
   const toggleActive = async (id, current) => {
     await updateProductCatalog(id, { active: !current })
-    setCatalog(prev => prev.map(r => r.id === id ? { ...r, active: !current } : r))
+    setCatalog(prev => upsertLocal(prev, id, { active: !current }))
   }
 
   const saveCardDescription = async () => {
     if (!editingCard) return
     setSavingCard(true)
     await updateProductCatalog(editingCard.id, { description: editingCard.description })
-    setCatalog(prev => prev.map(r => r.id === editingCard.id ? { ...r, description: editingCard.description } : r))
+    setCatalog(prev => upsertLocal(prev, editingCard.id, { description: editingCard.description }))
     setSavingCard(false)
     setEditingCard(null)
   }
