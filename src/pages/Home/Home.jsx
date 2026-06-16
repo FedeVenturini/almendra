@@ -27,19 +27,32 @@ export default function Home() {
   const activeBrand    = searchParams.get('marca')  || 'todos'
   const search         = searchParams.get('q')      || ''
 
-  const setFilter = (key, value) => {
+  const setActiveGroup = (v) => {
     setSearchParams(prev => {
       const next = new URLSearchParams(prev)
-      if (!value || value === 'todos' || value === '') next.delete(key)
-      else next.set(key, value)
+      if (!v || v === 'todos') next.delete('grupo'); else next.set('grupo', v)
+      next.delete('cat')
       return next
     }, { replace: true })
   }
 
-  const setActiveGroup    = (v) => { setFilter('grupo', v); setFilter('cat', '') }
-  const setActiveCategory = (v) => setFilter('cat', v)
-  const setActiveBrand    = (v) => setFilter('marca', v)
-  const setSearch         = (v) => setFilter('q', v)
+  const setActiveCategory = (v) => setSearchParams(prev => {
+    const next = new URLSearchParams(prev)
+    if (!v || v === 'todos') next.delete('cat'); else next.set('cat', v)
+    return next
+  }, { replace: true })
+
+  const setActiveBrand = (v) => setSearchParams(prev => {
+    const next = new URLSearchParams(prev)
+    if (!v || v === 'todos') next.delete('marca'); else next.set('marca', v)
+    return next
+  }, { replace: true })
+
+  const setSearch = (v) => setSearchParams(prev => {
+    const next = new URLSearchParams(prev)
+    if (!v) next.delete('q'); else next.set('q', v)
+    return next
+  }, { replace: true })
   const [showWholesale, setShowWholesale] = useState(false)
   const [carouselIndex, setCarouselIndex] = useState(0)
   const [carouselVisible, setCarouselVisible] = useState(true)
