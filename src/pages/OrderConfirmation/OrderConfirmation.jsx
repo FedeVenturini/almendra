@@ -1,20 +1,33 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useLocation, Link } from 'react-router-dom'
-import { saveFeedback } from '../../lib/supabase'
+import { saveFeedback, fetchOrder } from '../../lib/supabase'
 import styles from './OrderConfirmation.module.css'
 
 export default function OrderConfirmation() {
   const { orderId } = useParams()
   const { state } = useLocation()
-  const items = state?.items || []
-  const total = state?.total || 0
-  const waUrl = state?.waUrl || null
+
+  const [items, setItems] = useState(state?.items || null)
+  const [total, setTotal] = useState(state?.total || null)
+  const [waUrl, setWaUrl] = useState(state?.waUrl || null)
+  const [loadingOrder, setLoadingOrder] = useState(!state?.items)
 
   const [rating, setRating] = useState(0)
   const [hovered, setHovered] = useState(0)
   const [comment, setComment] = useState('')
   const [sent, setSent] = useState(false)
   const [sending, setSending] = useState(false)
+
+  useEffect(() => {
+    if (state?.items) return
+    fetchOrder(orderId)
+      .then(order => {
+        setItems(order.items)
+        setTotal(order.total)
+      })
+      .catch(console.error)
+      .finally(() => setLoadingOrder(false))
+  }, [orderId, state])
 
   const handleFeedback = async () => {
     if (!rating) return
@@ -27,6 +40,16 @@ export default function OrderConfirmation() {
     } finally {
       setSending(false)
     }
+  }
+
+  if (loadingOrder) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.card}>
+          <p style={{ color: 'var(--color-text-light)' }}>Cargando pedido...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -46,7 +69,7 @@ export default function OrderConfirmation() {
           </a>
         )}
 
-        {items.length > 0 && (
+        {items && items.length > 0 && (
           <div className={styles.summary}>
             <h2 className={styles.summaryTitle}>Tu pedido</h2>
             <ul className={styles.itemList}>

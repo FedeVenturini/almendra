@@ -11,6 +11,16 @@ export async function fetchProductCatalog() {
   return data
 }
 
+export async function fetchOrder(id) {
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('id', id)
+    .single()
+  if (error) throw error
+  return data
+}
+
 export async function saveFeedback(orderId, rating, comment) {
   const { error } = await supabase
     .from('feedback')

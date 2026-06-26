@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { saveOrder } from '../../lib/supabase'
+import { sendOrderConfirmation } from '../../lib/email'
 import { usePricing } from '../../context/PricingContext'
 import styles from './CheckoutForm.module.css'
 
@@ -61,6 +62,13 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
 
       const msg = buildWhatsAppMessage(form, cart, total)
       const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`
+      sendOrderConfirmation({
+        customerName: form.name,
+        customerEmail: form.email,
+        items: cart,
+        total,
+        orderId: order.id,
+      }).catch(() => {}) // no bloqueamos si el mail falla
       onSuccess(order.id, cart, total, waUrl)
     } catch (err) {
       console.error(err)

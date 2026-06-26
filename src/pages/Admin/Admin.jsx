@@ -5,7 +5,7 @@ import { supabase, updateProductCatalog, fetchFeedback } from '../../lib/supabas
 import { products as staticProducts } from '../../data/products'
 import styles from './Admin.module.css'
 
-const ADMIN_PASSWORD = 'almendra2024'
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD
 
 function toLocalDateString(date) {
   return date.toISOString().split('T')[0]
