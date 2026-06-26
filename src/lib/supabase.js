@@ -21,7 +21,7 @@ export async function saveFeedback(orderId, rating, comment) {
 export async function fetchFeedback() {
   const { data, error } = await supabase
     .from('feedback')
-    .select('*')
+    .select('*, orders(customer_name, customer_whatsapp)')
     .order('created_at', { ascending: false })
   if (error) throw error
   return data

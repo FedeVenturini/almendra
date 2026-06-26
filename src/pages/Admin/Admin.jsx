@@ -554,6 +554,9 @@ export default function Admin() {
                       <span className={styles.feedbackStars}>{'★'.repeat(f.rating)}{'☆'.repeat(5 - f.rating)}</span>
                       <span className={styles.feedbackDate}>{new Date(f.created_at).toLocaleDateString('es-AR')}</span>
                     </div>
+                    {f.orders?.customer_name && (
+                      <p className={styles.feedbackCustomer}>{f.orders.customer_name}{f.orders.customer_whatsapp ? ` · ${f.orders.customer_whatsapp}` : ''}</p>
+                    )}
                     {f.comment && <p className={styles.feedbackComment}>{f.comment}</p>}
                   </div>
                 ))}
