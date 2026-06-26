@@ -6,6 +6,7 @@ import Home from './pages/Home/Home'
 import ProductDetail from './pages/ProductDetail/ProductDetail'
 import CartPage from './pages/CartPage/CartPage'
 import Admin from './pages/Admin/Admin'
+import OrderConfirmation from './pages/OrderConfirmation/OrderConfirmation'
 import ComingSoon from './pages/ComingSoon/ComingSoon'
 
 const COMING_SOON = false
@@ -26,6 +27,7 @@ function App() {
           <Route path="/producto/:slug" element={<ProductDetail />} />
           <Route path="/carrito" element={<CartPage />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/pedido-confirmado/:orderId" element={<OrderConfirmation />} />
         </Routes>
       </main>
       {!isDetail && <Footer />}

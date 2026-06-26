@@ -721,3 +721,70 @@
 
 .cardModalSave:hover { background: #a85556; }
 .cardModalSave:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Opiniones */
+.feedbackSection {
+  padding: 24px;
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.feedbackStats {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.feedbackAvg {
+  font-size: 32px;
+  font-weight: 700;
+  color: #f5a623;
+}
+
+.feedbackCount {
+  font-size: 14px;
+  color: var(--color-text-light);
+}
+
+.feedbackList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feedbackCard {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.feedbackCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.feedbackStars {
+  font-size: 20px;
+  color: #f5a623;
+  letter-spacing: 2px;
+}
+
+.feedbackDate {
+  font-size: 12px;
+  color: var(--color-text-light);
+}
+
+.feedbackComment {
+  font-size: 14px;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.5;
+}

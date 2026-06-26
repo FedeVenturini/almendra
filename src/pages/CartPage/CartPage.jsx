@@ -9,10 +9,11 @@ export default function CartPage() {
   const [showForm, setShowForm] = useState(false)
   const navigate = useNavigate()
 
-  const handleSuccess = () => {
+  const handleSuccess = (orderId, items, total, waUrl) => {
+    if (!orderId) { setShowForm(false); return }
     clearCart()
     setShowForm(false)
-    navigate('/')
+    navigate(`/pedido-confirmado/${orderId}`, { state: { items, total, waUrl } })
   }
 
   if (cart.length === 0) return (

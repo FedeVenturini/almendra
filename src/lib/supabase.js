@@ -11,6 +11,22 @@ export async function fetchProductCatalog() {
   return data
 }
 
+export async function saveFeedback(orderId, rating, comment) {
+  const { error } = await supabase
+    .from('feedback')
+    .insert([{ order_id: orderId, rating, comment: comment || null }])
+  if (error) throw error
+}
+
+export async function fetchFeedback() {
+  const { data, error } = await supabase
+    .from('feedback')
+    .select('*')
+    .order('created_at', { ascending: false })
+  if (error) throw error
+  return data
+}
+
 export async function updateProductCatalog(id, fields) {
   const { error } = await supabase
     .from('product_catalog')

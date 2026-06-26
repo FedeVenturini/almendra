@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as XLSX from 'xlsx'
-import { supabase, updateProductCatalog } from '../../lib/supabase'
+import { supabase, updateProductCatalog, fetchFeedback } from '../../lib/supabase'
 import { products as staticProducts } from '../../data/products'
 import styles from './Admin.module.css'
 
@@ -183,8 +183,12 @@ export default function Admin() {
   const [saving, setSaving] = useState({})
   const [importing, setImporting] = useState(false)
   const [importResult, setImportResult] = useState(null)
-  const [editingCard, setEditingCard] = useState(null) // { id, description }
+  const [editingCard, setEditingCard] = useState(null)
   const [savingCard, setSavingCard] = useState(false)
+
+  // Opiniones
+  const [feedback, setFeedback] = useState([])
+  const [feedbackLoading, setFeedbackLoading] = useState(false)
 
   const login = e => {
     e.preventDefault()
@@ -201,6 +205,11 @@ export default function Admin() {
     setCatalogLoading(true)
     supabase.from('product_catalog').select('*')
       .then(({ data }) => { setCatalog(data || []); setCatalogLoading(false) })
+
+    setFeedbackLoading(true)
+    fetchFeedback()
+      .then(data => { setFeedback(data || []); setFeedbackLoading(false) })
+      .catch(() => setFeedbackLoading(false))
   }, [authed])
 
   const activeRange = preset === 'custom'
@@ -305,6 +314,7 @@ export default function Admin() {
       <div className={styles.tabs}>
         <button className={`${styles.tabBtn} ${tab === 'pedidos' ? styles.tabActive : ''}`} onClick={() => setTab('pedidos')}>Pedidos</button>
         <button className={`${styles.tabBtn} ${tab === 'productos' ? styles.tabActive : ''}`} onClick={() => setTab('productos')}>Productos</button>
+        <button className={`${styles.tabBtn} ${tab === 'opiniones' ? styles.tabActive : ''}`} onClick={() => setTab('opiniones')}>Opiniones</button>
       </div>
 
       {tab === 'pedidos' && (
@@ -519,6 +529,37 @@ export default function Admin() {
             )
           })}
         </div>
+        </div>
+      )}
+
+      {tab === 'opiniones' && (
+        <div className={styles.feedbackSection}>
+          <h2 className={styles.sectionTitle}>Opiniones de clientes</h2>
+          {feedbackLoading ? (
+            <p className={styles.loading}>Cargando...</p>
+          ) : feedback.length === 0 ? (
+            <p className={styles.empty}>Todavía no hay opiniones.</p>
+          ) : (
+            <>
+              <div className={styles.feedbackStats}>
+                <span className={styles.feedbackAvg}>
+                  {(feedback.reduce((s, f) => s + f.rating, 0) / feedback.length).toFixed(1)} ★
+                </span>
+                <span className={styles.feedbackCount}>{feedback.length} {feedback.length === 1 ? 'opinión' : 'opiniones'}</span>
+              </div>
+              <div className={styles.feedbackList}>
+                {feedback.map(f => (
+                  <div key={f.id} className={styles.feedbackCard}>
+                    <div className={styles.feedbackCardTop}>
+                      <span className={styles.feedbackStars}>{'★'.repeat(f.rating)}{'☆'.repeat(5 - f.rating)}</span>
+                      <span className={styles.feedbackDate}>{new Date(f.created_at).toLocaleDateString('es-AR')}</span>
+                    </div>
+                    {f.comment && <p className={styles.feedbackComment}>{f.comment}</p>}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
 
