@@ -457,6 +457,7 @@ export default function Admin() {
             </button>
 
             <label className={`${styles.importBtn} ${importing ? styles.importBtnLoading : ''}`}>
+              {importing && <span className={styles.spinner} />}
               {importing ? 'Importando...' : '↑ Importar Excel'}
               <input
                 type="file"
