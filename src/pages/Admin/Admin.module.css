@@ -795,3 +795,82 @@
   color: var(--color-text);
   margin: 0;
 }
+
+/* Filtros de productos */
+.productFilterBar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 16px 24px 0;
+}
+
+.filterChip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-light);
+  background: transparent;
+  transition: all 0.15s;
+}
+
+.filterChip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.filterChipActive {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.filterChipCount {
+  font-size: 11px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 100px;
+  padding: 1px 7px;
+  font-weight: 600;
+}
+
+.filterChipActive .filterChipCount {
+  background: rgba(255,255,255,0.3);
+}
+
+/* Badges de visibilidad */
+.productBadges {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.badgeInactivo {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 100px;
+  background: #f0f0f0;
+  color: #888;
+  font-weight: 500;
+}
+
+.badgeMinorista {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 100px;
+  background: #fff3e0;
+  color: #e65100;
+  font-weight: 500;
+}
+
+.badgeMayorista {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 100px;
+  background: #e3f2fd;
+  color: #1565c0;
+  font-weight: 500;
+}

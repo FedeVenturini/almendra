@@ -186,6 +186,9 @@ export default function Admin() {
   const [editingCard, setEditingCard] = useState(null)
   const [savingCard, setSavingCard] = useState(false)
 
+  // Filtro productos
+  const [productFilter, setProductFilter] = useState('todos')
+
   // Opiniones
   const [feedback, setFeedback] = useState([])
   const [feedbackLoading, setFeedbackLoading] = useState(false)
@@ -228,6 +231,17 @@ export default function Admin() {
     const row = catalog.find(r => r.id === p.id) || { price: 0, wholesale_price: 0, stock: 0, active: true }
     return { ...p, price: row.price, wholesale_price: row.wholesale_price, stock: row.stock, active: row.active ?? true }
   })
+
+  const filteredCatalog = catalogWithNames.filter(p => {
+    if (productFilter === 'activos') return p.active
+    if (productFilter === 'inactivos') return !p.active
+    if (productFilter === 'mayorista') return p.wholesaleVisible !== false
+    return true
+  })
+
+  const countActivos = catalogWithNames.filter(p => p.active).length
+  const countInactivos = catalogWithNames.filter(p => !p.active).length
+  const countMayorista = catalogWithNames.filter(p => p.wholesaleVisible !== false).length
 
   const upsertLocal = (prev, id, fields) => {
     const exists = prev.some(r => r.id === id)
@@ -436,6 +450,23 @@ export default function Admin() {
             </div>
           )}
 
+          <div className={styles.productFilterBar}>
+            {[
+              { key: 'todos', label: 'Todos', count: catalogWithNames.length },
+              { key: 'activos', label: 'Activos', count: countActivos },
+              { key: 'inactivos', label: 'Inactivos', count: countInactivos },
+              { key: 'mayorista', label: 'Solo mayorista', count: countMayorista },
+            ].map(f => (
+              <button
+                key={f.key}
+                className={`${styles.filterChip} ${productFilter === f.key ? styles.filterChipActive : ''}`}
+                onClick={() => setProductFilter(f.key)}
+              >
+                {f.label} <span className={styles.filterChipCount}>{f.count}</span>
+              </button>
+            ))}
+          </div>
+
         <div className={styles.productTable}>
           <div className={styles.productTableHeader}>
             <span>Producto</span>
@@ -446,13 +477,20 @@ export default function Admin() {
             <span className={styles.colCenter}>Editar</span>
           </div>
           {catalogLoading && <p className={styles.empty}>Cargando...</p>}
-          {catalogWithNames.map(p => {
+          {filteredCatalog.map(p => {
             const priceKey = `${p.id}-price`
             const wholesaleKey = `${p.id}-wholesale_price`
             const stockKey = `${p.id}-stock`
             return (
               <div key={p.id} className={`${styles.productRow} ${!p.active ? styles.productRowInactive : ''}`}>
-                <span className={styles.productName}>{p.name}</span>
+                <span className={styles.productName}>
+                  {p.name}
+                  <span className={styles.productBadges}>
+                    {!p.active && <span className={styles.badgeInactivo}>Inactivo</span>}
+                    {p.active && p.wholesaleVisible === false && <span className={styles.badgeMinorista}>Solo minorista</span>}
+                    {p.active && p.wholesaleVisible !== false && <span className={styles.badgeMayorista}>Mayorista</span>}
+                  </span>
+                </span>
 
 
                 <div className={styles.colCenter}>
