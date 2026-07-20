@@ -38,6 +38,16 @@
   font-size: 14px;
   color: var(--color-text-light);
   margin: 0;
+}
+
+.disclaimer {
+  font-size: 13px;
+  color: #7a5c3a;
+  background: #f5e6d0;
+  border: 1px solid #d4a97a;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin: 0;
   line-height: 1.5;
 }
 
