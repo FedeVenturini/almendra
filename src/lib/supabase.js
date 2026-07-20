@@ -51,6 +51,7 @@ export async function saveOrder({ customer, items, total, pricing_mode = 'retail
       customer_name: customer.name,
       customer_whatsapp: customer.whatsapp,
       customer_email: customer.email,
+      customer_negocio: customer.negocio || null,
       items,
       total,
       pricing_mode,

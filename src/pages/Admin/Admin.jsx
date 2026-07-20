@@ -418,6 +418,9 @@ export default function Admin() {
                         <span className={`${styles.modeBadge} ${order.pricing_mode === 'wholesale' ? styles.modeBadgeWholesale : styles.modeBadgeRetail}`}>
                           {order.pricing_mode === 'wholesale' ? 'Mayorista' : 'Minorista'}
                         </span>
+                        {order.customer_negocio && (
+                          <span className={styles.negocioBadge}>{order.customer_negocio}</span>
+                        )}
                       </div>
                       <p className={styles.orderContact}>{order.customer_whatsapp} · {order.customer_email}</p>
                     </div>
