@@ -20,11 +20,11 @@ export function useProducts() {
       const wholesalePrice = row?.wholesale_price ?? 0
       const price = mode === 'wholesale' ? wholesalePrice : retailPrice
       const active = row?.active ?? true
+      const wholesale_visible = row?.wholesale_visible ?? true
       const description = row?.description || p.description
-      return { ...p, price, stock: row?.stock ?? 0, active, description }
+      return { ...p, price, stock: row?.stock ?? 0, active, wholesale_visible, description }
     })
-    .filter(p => p.active)
-    .filter(p => mode === 'wholesale' ? p.wholesaleVisible !== false : true)
+    .filter(p => mode === 'wholesale' ? p.wholesale_visible : p.active)
 
   return { products, loading: catalog === null }
 }

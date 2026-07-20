@@ -342,7 +342,7 @@
 
 .productTableHeader {
   display: grid;
-  grid-template-columns: 1fr 110px 110px 100px 80px 60px;
+  grid-template-columns: 1fr 100px 64px 100px 64px 80px 52px;
   padding: 8px 14px;
   font-size: 11px;
   font-weight: 600;
@@ -353,7 +353,7 @@
 
 .productRow {
   display: grid;
-  grid-template-columns: 1fr 110px 110px 100px 80px 60px;
+  grid-template-columns: 1fr 100px 64px 100px 64px 80px 52px;
   align-items: center;
   background: #F3DBC3;
   border: 1px solid #96775C;

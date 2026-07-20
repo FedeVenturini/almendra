@@ -228,20 +228,27 @@ export default function Admin() {
   const summary = buildSummary(filteredOrders)
 
   const catalogWithNames = staticProducts.map(p => {
-    const row = catalog.find(r => r.id === p.id) || { price: 0, wholesale_price: 0, stock: 0, active: true }
-    return { ...p, price: row.price, wholesale_price: row.wholesale_price, stock: row.stock, active: row.active ?? true }
+    const row = catalog.find(r => r.id === p.id) || { price: 0, wholesale_price: 0, stock: 0, active: true, wholesale_visible: true }
+    return {
+      ...p,
+      price: row.price,
+      wholesale_price: row.wholesale_price,
+      stock: row.stock,
+      active: row.active ?? true,
+      wholesale_visible: row.wholesale_visible ?? true,
+    }
   })
 
   const filteredCatalog = catalogWithNames.filter(p => {
-    if (productFilter === 'activos') return p.active
-    if (productFilter === 'inactivos') return !p.active
-    if (productFilter === 'mayorista') return p.wholesaleVisible !== false
+    if (productFilter === 'minorista') return p.active
+    if (productFilter === 'mayorista') return p.wholesale_visible
+    if (productFilter === 'ninguno') return !p.active && !p.wholesale_visible
     return true
   })
 
-  const countActivos = catalogWithNames.filter(p => p.active).length
-  const countInactivos = catalogWithNames.filter(p => !p.active).length
-  const countMayorista = catalogWithNames.filter(p => p.wholesaleVisible !== false).length
+  const countMinorista = catalogWithNames.filter(p => p.active).length
+  const countMayorista = catalogWithNames.filter(p => p.wholesale_visible).length
+  const countNinguno = catalogWithNames.filter(p => !p.active && !p.wholesale_visible).length
 
   const upsertLocal = (prev, id, fields) => {
     const exists = prev.some(r => r.id === id)
@@ -252,6 +259,11 @@ export default function Admin() {
   const toggleActive = async (id, current) => {
     await updateProductCatalog(id, { active: !current })
     setCatalog(prev => upsertLocal(prev, id, { active: !current }))
+  }
+
+  const toggleWholesaleVisible = async (id, current) => {
+    await updateProductCatalog(id, { wholesale_visible: !current })
+    setCatalog(prev => upsertLocal(prev, id, { wholesale_visible: !current }))
   }
 
   const saveCardDescription = async () => {
@@ -424,7 +436,7 @@ export default function Admin() {
           <div className={styles.importBar}>
             <button
               className={styles.templateBtn}
-              onClick={() => downloadPriceTemplate(catalogWithNames)}
+              onClick={() => downloadPriceTemplate(filteredCatalog)}
             >
               ↓ Descargar plantilla
             </button>
@@ -453,9 +465,9 @@ export default function Admin() {
           <div className={styles.productFilterBar}>
             {[
               { key: 'todos', label: 'Todos', count: catalogWithNames.length },
-              { key: 'activos', label: 'Activos', count: countActivos },
-              { key: 'inactivos', label: 'Inactivos', count: countInactivos },
-              { key: 'mayorista', label: 'Solo mayorista', count: countMayorista },
+              { key: 'minorista', label: 'Visible minorista', count: countMinorista },
+              { key: 'mayorista', label: 'Visible mayorista', count: countMayorista },
+              { key: 'ninguno', label: 'Ocultos', count: countNinguno },
             ].map(f => (
               <button
                 key={f.key}
@@ -470,10 +482,11 @@ export default function Admin() {
         <div className={styles.productTable}>
           <div className={styles.productTableHeader}>
             <span>Producto</span>
-            <span className={styles.colCenter}>Minorista</span>
-            <span className={styles.colCenter}>Mayorista</span>
+            <span className={styles.colCenter}>$ Min.</span>
+            <span className={styles.colCenter}>👁 Min.</span>
+            <span className={styles.colCenter}>$ May.</span>
+            <span className={styles.colCenter}>👁 May.</span>
             <span className={styles.colCenter}>Stock</span>
-            <span className={styles.colCenter}>Visible</span>
             <span className={styles.colCenter}>Editar</span>
           </div>
           {catalogLoading && <p className={styles.empty}>Cargando...</p>}
@@ -482,17 +495,12 @@ export default function Admin() {
             const wholesaleKey = `${p.id}-wholesale_price`
             const stockKey = `${p.id}-stock`
             return (
-              <div key={p.id} className={`${styles.productRow} ${!p.active ? styles.productRowInactive : ''}`}>
+              <div key={p.id} className={`${styles.productRow} ${!p.active && !p.wholesale_visible ? styles.productRowInactive : ''}`}>
                 <span className={styles.productName}>
                   {p.name}
-                  <span className={styles.productBadges}>
-                    {!p.active && <span className={styles.badgeInactivo}>Inactivo</span>}
-                    {p.active && p.wholesaleVisible === false && <span className={styles.badgeMinorista}>Solo minorista</span>}
-                    {p.active && p.wholesaleVisible !== false && <span className={styles.badgeMayorista}>Mayorista</span>}
-                  </span>
                 </span>
 
-
+                {/* $ Minorista */}
                 <div className={styles.colCenter}>
                   {priceKey in editing ? (
                     <div className={styles.editCell}>
@@ -510,6 +518,18 @@ export default function Admin() {
                   )}
                 </div>
 
+                {/* Toggle Minorista */}
+                <div className={styles.colCenter}>
+                  <button
+                    className={`${styles.toggle} ${p.active ? styles.toggleOn : styles.toggleOff}`}
+                    onClick={() => toggleActive(p.id, p.active)}
+                    title={p.active ? 'Visible para minoristas' : 'Oculto para minoristas'}
+                  >
+                    <span className={styles.toggleThumb} />
+                  </button>
+                </div>
+
+                {/* $ Mayorista */}
                 <div className={styles.colCenter}>
                   {wholesaleKey in editing ? (
                     <div className={styles.editCell}>
@@ -527,6 +547,18 @@ export default function Admin() {
                   )}
                 </div>
 
+                {/* Toggle Mayorista */}
+                <div className={styles.colCenter}>
+                  <button
+                    className={`${styles.toggle} ${p.wholesale_visible ? styles.toggleOn : styles.toggleOff}`}
+                    onClick={() => toggleWholesaleVisible(p.id, p.wholesale_visible)}
+                    title={p.wholesale_visible ? 'Visible para mayoristas' : 'Oculto para mayoristas'}
+                  >
+                    <span className={styles.toggleThumb} />
+                  </button>
+                </div>
+
+                {/* Stock */}
                 <div className={styles.colCenter}>
                   {stockKey in editing ? (
                     <div className={styles.editCell}>
@@ -544,16 +576,7 @@ export default function Admin() {
                   )}
                 </div>
 
-                <div className={styles.colCenter}>
-                  <button
-                    className={`${styles.toggle} ${p.active ? styles.toggleOn : styles.toggleOff}`}
-                    onClick={() => toggleActive(p.id, p.active)}
-                    title={p.active ? 'Visible en tienda' : 'Oculto en tienda'}
-                  >
-                    <span className={styles.toggleThumb} />
-                  </button>
-                </div>
-
+                {/* Editar descripción */}
                 <div className={styles.colCenter}>
                   <button
                     className={styles.pencilBtn}
