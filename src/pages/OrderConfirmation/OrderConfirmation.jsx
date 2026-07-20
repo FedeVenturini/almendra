@@ -70,6 +70,8 @@ export default function OrderConfirmation() {
           </a>
         )}
 
+        <hr className={styles.divider} />
+
         {items && items.length > 0 && (
           <div className={styles.summary}>
             <h2 className={styles.summaryTitle}>Tu pedido</h2>
@@ -91,6 +93,8 @@ export default function OrderConfirmation() {
             )}
           </div>
         )}
+
+        <hr className={styles.divider} />
 
         <div className={styles.feedback}>
           <h2 className={styles.feedbackTitle}>¿Cómo fue tu experiencia?</h2>
