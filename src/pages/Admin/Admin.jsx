@@ -35,14 +35,21 @@ function downloadPriceTemplate(catalogWithNames) {
     'ID ERP': p.erpId,
     'Nombre ERP': p.erpName,
     'Precio Minorista': p.price,
+    'Visible Minorista': p.active ? 'Si' : 'No',
     'Precio Mayorista': p.wholesale_price,
+    'Visible Mayorista': p.wholesale_visible ? 'Si' : 'No',
     Stock: p.stock,
   }))
   const ws = XLSX.utils.json_to_sheet(rows)
-  ws['!cols'] = [{ wch: 8 }, { wch: 36 }, { wch: 10 }, { wch: 50 }, { wch: 18 }, { wch: 18 }, { wch: 10 }]
+  ws['!cols'] = [{ wch: 8 }, { wch: 36 }, { wch: 10 }, { wch: 50 }, { wch: 18 }, { wch: 16 }, { wch: 18 }, { wch: 16 }, { wch: 10 }]
   const wb = XLSX.utils.book_new()
   XLSX.utils.book_append_sheet(wb, ws, 'Precios')
   XLSX.writeFile(wb, 'almendra-precios.xlsx')
+}
+
+function parseSiNo(val) {
+  if (val === undefined || val === null || val === '') return undefined
+  return String(val).trim().toLowerCase().startsWith('s')
 }
 
 async function importPricesFromExcel(file) {
@@ -62,8 +69,13 @@ async function importPricesFromExcel(file) {
       results.errors.push(id)
       continue
     }
+    const fields = { price, wholesale_price, stock }
+    const active = parseSiNo(row['Visible Minorista'])
+    const wholesale_visible = parseSiNo(row['Visible Mayorista'])
+    if (active !== undefined) fields.active = active
+    if (wholesale_visible !== undefined) fields.wholesale_visible = wholesale_visible
     try {
-      await updateProductCatalog(id, { price, wholesale_price, stock })
+      await updateProductCatalog(id, fields)
       results.ok++
     } catch {
       results.errors.push(id)
