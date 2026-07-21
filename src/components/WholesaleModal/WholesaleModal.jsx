@@ -22,16 +22,19 @@ export default function WholesaleModal({ onClose }) {
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
   const [showPwd, setShowPwd] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
   }, [])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const ok = unlockWholesale(password)
-    if (ok) {
+    setLoading(true)
+    const result = await unlockWholesale(password)
+    setLoading(false)
+    if (result.ok) {
       onClose()
     } else {
       setError(true)
@@ -43,23 +46,26 @@ export default function WholesaleModal({ onClose }) {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={e => e.stopPropagation()}>
         <h2 className={styles.title}>Acceso mayorista</h2>
-        <p className={styles.subtitle}>Ingresá tu contraseña para ver los precios mayoristas</p>
+        <p className={styles.subtitle}>Ingresá tu contraseña o CUIT para ver los precios mayoristas</p>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputWrap}>
             <input
               className={`${styles.input} ${error ? styles.inputError : ''}`}
               type={showPwd ? 'text' : 'password'}
-              placeholder="Contraseña"
+              placeholder="Contraseña o CUIT"
               value={password}
               onChange={e => { setPassword(e.target.value); setError(false) }}
               autoFocus
+              disabled={loading}
             />
             <button type="button" className={styles.eyeBtn} onClick={() => setShowPwd(v => !v)}>
               <EyeIcon open={showPwd} />
             </button>
           </div>
           {error && <p className={styles.error}>Contraseña incorrecta</p>}
-          <button className={styles.submitBtn} type="submit">Ingresar</button>
+          <button className={styles.submitBtn} type="submit" disabled={loading}>
+            {loading ? 'Verificando...' : 'Ingresar'}
+          </button>
         </form>
         <button className={styles.cancelBtn} onClick={onClose}>Cancelar</button>
       </div>

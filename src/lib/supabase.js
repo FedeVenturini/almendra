@@ -37,6 +37,39 @@ export async function fetchFeedback() {
   return data
 }
 
+export async function findWholesaleClientByCuit(cuit) {
+  const { data } = await supabase
+    .from('wholesale_clients')
+    .select('*')
+    .eq('cuit', cuit)
+    .single()
+  return data || null
+}
+
+export async function upsertWholesaleClient({ nombre, telefono, cuit, mail, empresa }) {
+  const { error } = await supabase
+    .from('wholesale_clients')
+    .upsert({ nombre, telefono, cuit, mail: mail || null, empresa }, { onConflict: 'cuit' })
+  if (error) throw error
+}
+
+export async function fetchWholesaleClients() {
+  const { data, error } = await supabase
+    .from('wholesale_clients')
+    .select('*')
+    .order('created_at', { ascending: false })
+  if (error) throw error
+  return data
+}
+
+export async function updateWholesaleClient(id, fields) {
+  const { error } = await supabase
+    .from('wholesale_clients')
+    .update(fields)
+    .eq('id', id)
+  if (error) throw error
+}
+
 export async function updateProductCatalog(id, fields) {
   const { error } = await supabase
     .from('product_catalog')

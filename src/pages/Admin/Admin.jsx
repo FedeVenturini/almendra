@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as XLSX from 'xlsx'
-import { supabase, updateProductCatalog, fetchFeedback } from '../../lib/supabase'
+import { supabase, updateProductCatalog, fetchFeedback, fetchWholesaleClients, updateWholesaleClient } from '../../lib/supabase'
 import { products as staticProducts } from '../../data/products'
 import styles from './Admin.module.css'
 
@@ -205,6 +205,12 @@ export default function Admin() {
   const [feedback, setFeedback] = useState([])
   const [feedbackLoading, setFeedbackLoading] = useState(false)
 
+  // Mayoristas
+  const [wholesaleClients, setWholesaleClients] = useState([])
+  const [wholesaleLoading, setWholesaleLoading] = useState(false)
+  const [editingClient, setEditingClient] = useState({})
+  const [savingClient, setSavingClient] = useState({})
+
   const login = e => {
     e.preventDefault()
     if (password === ADMIN_PASSWORD) { setAuthed(true); setLoginError(null) }
@@ -225,6 +231,11 @@ export default function Admin() {
     fetchFeedback()
       .then(data => { setFeedback(data || []); setFeedbackLoading(false) })
       .catch(() => setFeedbackLoading(false))
+
+    setWholesaleLoading(true)
+    fetchWholesaleClients()
+      .then(data => { setWholesaleClients(data || []); setWholesaleLoading(false) })
+      .catch(() => setWholesaleLoading(false))
   }, [authed])
 
   const activeRange = preset === 'custom'
@@ -266,6 +277,22 @@ export default function Admin() {
     const exists = prev.some(r => r.id === id)
     if (exists) return prev.map(r => r.id === id ? { ...r, ...fields } : r)
     return [...prev, { id, ...fields }]
+  }
+
+  const startClientEdit = (id, field, value) =>
+    setEditingClient(e => ({ ...e, [`${id}-${field}`]: value }))
+
+  const handleClientChange = (id, field, value) =>
+    setEditingClient(e => ({ ...e, [`${id}-${field}`]: value }))
+
+  const saveClientField = async (id, field) => {
+    const key = `${id}-${field}`
+    const value = editingClient[key]
+    setSavingClient(s => ({ ...s, [key]: true }))
+    await updateWholesaleClient(id, { [field]: value })
+    setWholesaleClients(prev => prev.map(c => c.id === id ? { ...c, [field]: value } : c))
+    setEditingClient(e => { const n = { ...e }; delete n[key]; return n })
+    setSavingClient(s => { const n = { ...s }; delete n[key]; return n })
   }
 
   const toggleActive = async (id, current) => {
@@ -353,6 +380,7 @@ export default function Admin() {
         <button className={`${styles.tabBtn} ${tab === 'pedidos' ? styles.tabActive : ''}`} onClick={() => setTab('pedidos')}>Pedidos</button>
         <button className={`${styles.tabBtn} ${tab === 'productos' ? styles.tabActive : ''}`} onClick={() => setTab('productos')}>Productos</button>
         <button className={`${styles.tabBtn} ${tab === 'opiniones' ? styles.tabActive : ''}`} onClick={() => setTab('opiniones')}>Opiniones</button>
+        <button className={`${styles.tabBtn} ${tab === 'mayoristas' ? styles.tabActive : ''}`} onClick={() => setTab('mayoristas')}>Mayoristas</button>
       </div>
 
       {tab === 'pedidos' && (
@@ -639,6 +667,59 @@ export default function Admin() {
                 ))}
               </div>
             </>
+          )}
+        </div>
+      )}
+
+      {tab === 'mayoristas' && (
+        <div>
+          <h2 className={styles.sectionTitle}>Clientes mayoristas</h2>
+          {wholesaleLoading ? (
+            <p className={styles.empty}>Cargando...</p>
+          ) : wholesaleClients.length === 0 ? (
+            <p className={styles.empty}>Todavía no hay clientes mayoristas registrados.</p>
+          ) : (
+            <div className={styles.clientTable}>
+              <div className={styles.clientTableHeader}>
+                <span>Empresa</span>
+                <span>Nombre</span>
+                <span>CUIT</span>
+                <span>Teléfono</span>
+                <span>Mail</span>
+              </div>
+              {wholesaleClients.map(c => {
+                const fields = ['empresa', 'nombre', 'cuit', 'telefono', 'mail']
+                return (
+                  <div key={c.id} className={styles.clientRow}>
+                    {fields.map(field => {
+                      const key = `${c.id}-${field}`
+                      return (
+                        <div key={field} className={styles.clientCell}>
+                          {key in editingClient ? (
+                            <div className={styles.editCell}>
+                              <input
+                                className={styles.editInputWide}
+                                value={editingClient[key]}
+                                onChange={e => handleClientChange(c.id, field, e.target.value)}
+                                onKeyDown={e => e.key === 'Enter' && saveClientField(c.id, field)}
+                                autoFocus={field === 'empresa'}
+                              />
+                              <button className={styles.saveBtn} onClick={() => saveClientField(c.id, field)} disabled={savingClient[key]}>
+                                {savingClient[key] ? '...' : '✓'}
+                              </button>
+                            </div>
+                          ) : (
+                            <button className={styles.clientFieldBtn} onClick={() => startClientEdit(c.id, field, c[field] || '')}>
+                              {c[field] || <span className={styles.clientEmpty}>—</span>}
+                            </button>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
+                )
+              })}
+            </div>
           )}
         </div>
       )}

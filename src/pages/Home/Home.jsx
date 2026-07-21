@@ -57,7 +57,7 @@ export default function Home() {
   const [carouselIndex, setCarouselIndex] = useState(0)
   const [carouselVisible, setCarouselVisible] = useState(true)
   const { products } = useProducts()
-  const { mode, exitWholesale } = usePricing()
+  const { mode, empresa, exitWholesale } = usePricing()
 
   const carouselImages = products.map(p => p.images[0]).filter(img => img && !img.includes('card-revelando'))
 
@@ -128,7 +128,7 @@ export default function Home() {
 
         {mode === 'wholesale' ? (
           <div className={styles.wholesaleBadge}>
-            🏪 Estás viendo precios mayoristas
+            🏪 {empresa ? `Bienvenido, ${empresa}` : 'Estás viendo precios mayoristas'}
             <button className={styles.exitWholesale} onClick={exitWholesale}>Salir</button>
           </div>
         ) : (

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { saveOrder } from '../../lib/supabase'
+import { saveOrder, upsertWholesaleClient } from '../../lib/supabase'
 import { sendOrderConfirmation } from '../../lib/email'
 import { usePricing } from '../../context/PricingContext'
 import styles from './CheckoutForm.module.css'
@@ -24,17 +24,21 @@ function validate(form, mode) {
     errors.whatsapp = 'Ingresá un número válido (solo dígitos)'
   if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
     errors.email = 'Ingresá un mail válido'
-  if (mode === 'wholesale' && !form.negocio.trim())
-    errors.negocio = 'Ingresá el nombre de tu negocio'
+  if (mode === 'wholesale') {
+    if (!form.negocio.trim()) errors.negocio = 'Ingresá el nombre de tu negocio'
+    const cuit = form.cuit.replace(/\D/g, '')
+    if (!cuit || cuit.length < 10 || cuit.length > 11)
+      errors.cuit = 'Ingresá un CUIT válido (sin guiones)'
+  }
   return errors
 }
 
 export default function CheckoutForm({ cart, total, onSuccess }) {
-  const [form, setForm] = useState({ name: '', whatsapp: '', email: '', negocio: '' })
+  const { mode, empresa } = usePricing()
+  const [form, setForm] = useState({ name: '', whatsapp: '', email: '', negocio: '', cuit: '' })
   const [fieldErrors, setFieldErrors] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const { mode } = usePricing()
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -68,7 +72,18 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
         items: cart,
         total,
         orderId: order.id,
-      }).catch(() => {}) // no bloqueamos si el mail falla
+      }).catch(() => {})
+
+      if (mode === 'wholesale' && !empresa) {
+        upsertWholesaleClient({
+          nombre: form.name,
+          telefono: form.whatsapp,
+          cuit: form.cuit.replace(/\D/g, ''),
+          mail: form.email,
+          empresa: form.negocio,
+        }).catch(() => {})
+      }
+
       onSuccess(order.id, cart, total, waUrl)
     } catch (err) {
       console.error(err)
@@ -120,18 +135,32 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
             />
             {fieldErrors.email && <span className={styles.fieldError}>{fieldErrors.email}</span>}
           </label>
-          {mode === 'wholesale' && (
-            <label className={styles.label}>
-              Empresa / Negocio
-              <input
-                className={`${styles.input} ${fieldErrors.negocio ? styles.inputError : ''}`}
-                name="negocio"
-                value={form.negocio}
-                onChange={handleChange}
-                placeholder="Nombre de tu negocio o empresa"
-              />
-              {fieldErrors.negocio && <span className={styles.fieldError}>{fieldErrors.negocio}</span>}
-            </label>
+          {mode === 'wholesale' && !empresa && (
+            <>
+              <label className={styles.label}>
+                Empresa / Negocio
+                <input
+                  className={`${styles.input} ${fieldErrors.negocio ? styles.inputError : ''}`}
+                  name="negocio"
+                  value={form.negocio}
+                  onChange={handleChange}
+                  placeholder="Nombre de tu negocio o empresa"
+                />
+                {fieldErrors.negocio && <span className={styles.fieldError}>{fieldErrors.negocio}</span>}
+              </label>
+              <label className={styles.label}>
+                CUIT
+                <input
+                  className={`${styles.input} ${fieldErrors.cuit ? styles.inputError : ''}`}
+                  name="cuit"
+                  value={form.cuit}
+                  onChange={handleChange}
+                  placeholder="Ej: 20123456789"
+                  inputMode="numeric"
+                />
+                {fieldErrors.cuit && <span className={styles.fieldError}>{fieldErrors.cuit}</span>}
+              </label>
+            </>
           )}
 
           {error && <p className={styles.error}>{error}</p>}
