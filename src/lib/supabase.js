@@ -39,11 +39,9 @@ export async function fetchFeedback() {
 
 export async function findWholesaleClientByCuit(cuit) {
   const { data } = await supabase
-    .from('wholesale_clients')
-    .select('*')
-    .eq('cuit', cuit)
-    .single()
-  return data || null
+    .rpc('check_wholesale_cuit', { input_cuit: cuit })
+  // devuelve solo el nombre de empresa o null — nunca expone la fila completa
+  return data ? { empresa: data } : null
 }
 
 export async function upsertWholesaleClient({ nombre, telefono, cuit, mail, empresa }) {
