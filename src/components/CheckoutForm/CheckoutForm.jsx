@@ -15,7 +15,7 @@ function buildWhatsAppMessage(customer, items, total) {
   )
 }
 
-function validate(form, mode) {
+function validate(form, mode, empresa) {
   const errors = {}
   if (!form.name.trim() || form.name.trim().length < 2)
     errors.name = 'Ingresá tu nombre completo'
@@ -54,7 +54,7 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
 
   const handleSubmit = async e => {
     e.preventDefault()
-    const errors = validate(form, mode)
+    const errors = validate(form, mode, empresa)
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors)
       return
@@ -62,16 +62,21 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
     setLoading(true)
     setError(null)
 
+    // Construir y abrir WhatsApp de forma sincrónica (antes del primer await)
+    // El navegador solo permite window.open dentro de un gesto de usuario
+    const customerData = { ...form, negocio: empresa || form.negocio }
+    const msg = buildWhatsAppMessage(customerData, cart, total)
+    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`
+    window.open(waUrl, '_blank')
+
     try {
       const order = await saveOrder({
-        customer: { ...form, negocio: empresa || form.negocio },
+        customer: customerData,
         items: cart.map(i => ({ id: i.id, name: i.name, quantity: i.quantity, price: i.price })),
         total,
         pricing_mode: mode,
       })
 
-      const msg = buildWhatsAppMessage(form, cart, total)
-      const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`
       sendOrderConfirmation({
         customerName: form.name,
         customerEmail: form.email,
