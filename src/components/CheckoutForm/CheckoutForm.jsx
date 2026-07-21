@@ -22,8 +22,8 @@ function validate(form, mode) {
   const phone = form.whatsapp.replace(/\D/g, '')
   if (!phone || phone.length < 8 || phone.length > 15)
     errors.whatsapp = 'Ingresá un número válido (solo dígitos)'
-  if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
-    errors.email = 'Ingresá un mail válido'
+  if (form.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
+    errors.email = 'El mail no tiene un formato válido'
   if (mode === 'wholesale') {
     if (!form.negocio.trim()) errors.negocio = 'Ingresá el nombre de tu negocio'
     const cuit = form.cuit.replace(/\D/g, '')
@@ -101,7 +101,7 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
 
         <form onSubmit={handleSubmit} className={styles.form} noValidate>
           <label className={styles.label}>
-            Nombre
+            Nombre *
             <input
               className={`${styles.input} ${fieldErrors.name ? styles.inputError : ''}`}
               name="name"
@@ -112,7 +112,7 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
             {fieldErrors.name && <span className={styles.fieldError}>{fieldErrors.name}</span>}
           </label>
           <label className={styles.label}>
-            WhatsApp
+            WhatsApp *
             <input
               className={`${styles.input} ${fieldErrors.whatsapp ? styles.inputError : ''}`}
               name="whatsapp"
@@ -124,7 +124,7 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
             {fieldErrors.whatsapp && <span className={styles.fieldError}>{fieldErrors.whatsapp}</span>}
           </label>
           <label className={styles.label}>
-            Mail
+            Mail <span className={styles.optional}>(opcional)</span>
             <input
               className={`${styles.input} ${fieldErrors.email ? styles.inputError : ''}`}
               name="email"
@@ -138,7 +138,7 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
           {mode === 'wholesale' && !empresa && (
             <>
               <label className={styles.label}>
-                Empresa / Negocio
+                Empresa / Negocio *
                 <input
                   className={`${styles.input} ${fieldErrors.negocio ? styles.inputError : ''}`}
                   name="negocio"
@@ -150,7 +150,7 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
               </label>
               <label className={styles.label}>
                 <span className={styles.labelRow}>
-                  CUIL/CUIT
+                  CUIL/CUIT *
                   <span className={styles.infoWrap}>
                     <span className={styles.infoIcon}>!</span>
                     <span className={styles.infoTooltip}>
