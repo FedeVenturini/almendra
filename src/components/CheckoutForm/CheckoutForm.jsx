@@ -149,7 +149,15 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
                 {fieldErrors.negocio && <span className={styles.fieldError}>{fieldErrors.negocio}</span>}
               </label>
               <label className={styles.label}>
-                CUIT
+                <span className={styles.labelRow}>
+                  CUIT
+                  <span className={styles.infoWrap}>
+                    <span className={styles.infoIcon}>!</span>
+                    <span className={styles.infoTooltip}>
+                      Este CUIT será tu contraseña para ingresar al modo mayorista en tus próximas visitas. ¡Guardalo!
+                    </span>
+                  </span>
+                </span>
                 <input
                   className={`${styles.input} ${fieldErrors.cuit ? styles.inputError : ''}`}
                   name="cuit"
