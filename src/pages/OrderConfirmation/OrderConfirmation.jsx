@@ -59,16 +59,6 @@ export default function OrderConfirmation() {
         <h1 className={styles.title}>¡Pedido realizado!</h1>
         <p className={styles.subtitle}>Tu pedido fue registrado. Ahora coordiná la entrega por WhatsApp.</p>
         <p className={styles.disclaimer}>⚠️ Este pedido es una intención de compra. La disponibilidad de los productos se confirma al coordinar la entrega.</p>
-        {waUrl && (
-          <a
-            href={waUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.waBtn}
-          >
-            Enviar pedido por WhatsApp
-          </a>
-        )}
 
         <hr className={styles.divider} />
 
