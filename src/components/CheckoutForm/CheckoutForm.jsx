@@ -24,7 +24,7 @@ function validate(form, mode) {
     errors.whatsapp = 'Ingresá un número válido (solo dígitos)'
   if (form.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
     errors.email = 'El mail no tiene un formato válido'
-  if (mode === 'wholesale') {
+  if (mode === 'wholesale' && !empresa) {
     if (!form.negocio.trim()) errors.negocio = 'Ingresá el nombre de tu negocio'
     const cuit = form.cuit.replace(/\D/g, '')
     if (!cuit || cuit.length < 10 || cuit.length > 11)
@@ -34,8 +34,14 @@ function validate(form, mode) {
 }
 
 export default function CheckoutForm({ cart, total, onSuccess }) {
-  const { mode, empresa } = usePricing()
-  const [form, setForm] = useState({ name: '', whatsapp: '', email: '', negocio: '', cuit: '' })
+  const { mode, empresa, wholesaleClient } = usePricing()
+  const [form, setForm] = useState({
+    name: wholesaleClient?.nombre || '',
+    whatsapp: wholesaleClient?.telefono || '',
+    email: wholesaleClient?.mail || '',
+    negocio: wholesaleClient?.empresa || '',
+    cuit: '',
+  })
   const [fieldErrors, setFieldErrors] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
