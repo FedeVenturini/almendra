@@ -178,7 +178,7 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
           </button>
         </form>
 
-        <button className={styles.cancelBtn} onClick={onSuccess}>Cancelar</button>
+        <button className={styles.cancelBtn} onClick={() => onSuccess()}>Cancelar</button>
       </div>
     </div>
   )
