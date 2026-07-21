@@ -28,7 +28,7 @@ function validate(form, mode) {
     if (!form.negocio.trim()) errors.negocio = 'Ingresá el nombre de tu negocio'
     const cuit = form.cuit.replace(/\D/g, '')
     if (!cuit || cuit.length < 10 || cuit.length > 11)
-      errors.cuit = 'Ingresá un CUIT válido (sin guiones)'
+      errors.cuit = 'Ingresá un CUIL/CUIT válido (sin guiones)'
   }
   return errors
 }
@@ -150,11 +150,11 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
               </label>
               <label className={styles.label}>
                 <span className={styles.labelRow}>
-                  CUIT
+                  CUIL/CUIT
                   <span className={styles.infoWrap}>
                     <span className={styles.infoIcon}>!</span>
                     <span className={styles.infoTooltip}>
-                      Este CUIT será tu contraseña para ingresar al modo mayorista en tus próximas visitas. ¡Guardalo!
+                      Este CUIL/CUIT será tu contraseña para ingresar al modo mayorista en tus próximas visitas. ¡Guardalo!
                     </span>
                   </span>
                 </span>
