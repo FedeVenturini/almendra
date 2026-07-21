@@ -58,7 +58,7 @@ export default function CheckoutForm({ cart, total, onSuccess }) {
 
     try {
       const order = await saveOrder({
-        customer: form,
+        customer: { ...form, negocio: empresa || form.negocio },
         items: cart.map(i => ({ id: i.id, name: i.name, quantity: i.quantity, price: i.price })),
         total,
         pricing_mode: mode,
